@@ -57,8 +57,8 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Dashboard</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="dashboard.html" class="dropdown-item active">Dashboard</a>
-                            <a href="pages.html" class="dropdown-item">Start Typing</a>
+                            <a href="dashboard.html" class="dropdown-item">Dashboard</a>
+                            <a href="pages.html" class="dropdown-item active">Start Typing</a>
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -71,136 +71,125 @@
         <!-- Jobs Start -->
         <div class="container-xxl py-5">
             <div class="container">
-                <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="color: #7b7b7b;">Welcome to Booktyping Pro</h4><hr>
+                <h4 class="text-center mb-5 wow fadeInUp" style="color: rgb(135, 135, 135);" data-wow-delay="0.1s">TYPE PAGES</h4><hr>
                 <div class="row">
-                <div class="col-lg-12">
-                <table id="customers">
-                    <tr>
-                      <td>Name</td>
-                      <td>LSIT Dev</td>
-                    </tr>
-                    <tr>
-                      <td>Last Date of Submission</td>
-                      <td>16-Feb-2024</td>
-                    </tr>
-                    <tr>
-                      <td>Total Number of Pages</td>
-                      <td>500</td>
-                    </tr>
-                    <tr>
-                      <td>Total Completed Pages</td>
-                      <td>15</td>
-                    </tr>
-                    <tr>
-                      <td>Total Number of Days</td>
-                      <td>7</td>
-                    </tr>
-                  </table>
+                    <span>Select Page</span>
+                    <div class="col-lg-12">
+                        <select id="pages">
+                            <option value="0">Select Page:</option>
+                        </select><hr>
+                    </div>
                 </div>
-            </div>
-            <p style="color: red;">Note: You can only submit your work once you will complete all pages.</p>
-            <div class="row">
-                <div class="col-lg-12" style="border-style: none; text-align: center;">
-                    <a href="pages.html"><button class="button-17">START TYPING</button></a>
+                <div class="row">
+                    <div class="col-lg-12" style="text-align: center;">
+                        <textarea id="content" oncopy="return false;" onpaste="return false;" disabled></textarea><hr>
+                    </div>
                 </div>
-            </div>
+                <div class="row" id="fields"></div><hr>
+                <div class="row"  style="border-style: none;text-align: center;">
+                    <div class="col-lg-12">
+                        <button type="button" onclick="submit()" class="button-88" role="button">Submit</button></a>
+                        <a href="dashboard.html"><button class="button-88" role="button">Cancle</button></a>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Jobs End -->
+        <script src="pages.js"></script>
+        <script>
+            for(var i=1;i<=10;i++){
+                document.getElementById("pages").innerHTML += '<option value="'+ i +'">Page '+ i +'</option>';
+            }
+            document.getElementById("pages").addEventListener("change", function() {
+            var selectElement = document.getElementById("pages");
+            var selectedOption = selectElement.options[selectElement.selectedIndex].text;
+            location = "typepages.html?content="+selectedOption;
+            });
+
+            const queryParams = new URLSearchParams(window.location.search);
+            // Get the value of a specific parameter
+            const param1Value = queryParams.get('content');
+            const content = pages["page" + param1Value.split(" ")[1]];
+            document.getElementById("content").innerHTML = content;
+            const contentList = content.split("*");
+            for(var i = 0; i<contentList.length; i++){
+                document.getElementById("fields").innerHTML += 
+                `<div class="col-lg-12">
+                        <span style="color:rgb(135, 135, 135);"><b>Typing Field ${i+1}:</b></span>
+                        <textarea class="field" oncopy="return false;" onpaste="return false;" id="field${i+1}"></textarea>
+                </div>`
+            }
+
+            function submit(){
+                let person = prompt("Please enter your email to confirm:", "");
+                    if(person == sessionStorage.getItem("email") && person != ("null" &&  null && "") ){
+                        location = "dashboard.html";
+                        console.log("ojk")
+                    }else{
+                        alert("Incorrect Email Id...")
+                    }
+                }
+        </script>
+
         <style>
-            #customers {
-              font-family: Arial, Helvetica, sans-serif;
-              border-collapse: collapse;
-              width: 100%;
+            #content{
+                width: 100%;
+                height: 5cm;
+                resize: vertical;
+                color: rgb(126, 140, 123);
+                font-size: 20px;
+                font-weight: bold;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+                font-style: italic;
             }
-            
-            #customers td, #customers th {
-              border: 1px solid #ddd;
-              padding: 8px;
+
+            #pages{
+                width: 8cm;
+                height: 1cm;
             }
-            
-            #customers tr:nth-child(odd){background-color: #f2f2f2;}
-            
-            #customers tr:hover {background-color: #ddd;}
-            
-            #customers th {
-              padding-top: 12px;
-              padding-bottom: 12px;
-              text-align: left;
-              background-color: #04AA6D;
-              color: white;
+
+            .field{
+                width: 100%;
+                min-height: 1.5cm;
+                resize: vertical;
+                color: #00B074;
+                font-weight: bold;
+            }
+
+            #fields{
+                height: 10cm;
+                overflow-y: scroll;
             }
 
             /* CSS */
-            .button-17 {
+            .button-88 {
             align-items: center;
-            appearance: none;
-            background-color: #fff;
-            border-radius: 24px;
-            border-style: none;
-            box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
-            box-sizing: border-box;
-            color: #3c4043;
-            cursor: pointer;
-            display: inline-flex;
-            fill: currentcolor;
-            font-family: "Google Sans",Roboto,Arial,sans-serif;
-            font-size: 14px;
+            width: 3.5cm;
+            font-family: inherit;
             font-weight: 500;
-            height: 48px;
-            justify-content: center;
-            letter-spacing: .25px;
-            line-height: normal;
-            max-width: 100%;
-            overflow: visible;
-            padding: 2px 24px;
-            position: relative;
-            text-align: center;
-            text-transform: none;
-            transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+            font-size: 16px;
+            padding: 0.8em 1.5em 0.8em 1.2em;
+            color: white;
+            background: #00B074;
+            background: linear-gradient(0deg, rgb(16, 134, 50) 0%, rrgb(76, 183, 85)100%);
+            border: none;
+            box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+            letter-spacing: 0.05em;
+            border-radius: 10em;
+            cursor: pointer;
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
-            width: auto;
-            will-change: transform,opacity;
-            z-index: 0;
             }
 
-            .button-17:hover {
-            background: #F6F9FE;
-            color: #174ea6;
+            .button-88:hover {
+            box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
             }
 
-            .button-17:active {
-            box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
-            outline: none;
+            .button-88:active {
+            box-shadow: 0 0.3em 1em -0.5em #14a73e98;
             }
-
-            .button-17:focus {
-            outline: none;
-            border: 2px solid #4285f4;
-            }
-
-            .button-17:not(:disabled) {
-            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
-            }
-
-            .button-17:not(:disabled):hover {
-            box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
-            }
-
-            .button-17:not(:disabled):focus {
-            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
-            }
-
-            .button-17:not(:disabled):active {
-            box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
-            }
-
-            .button-17:disabled {
-            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
-            }
-            </style>
+        </style>
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -208,9 +197,9 @@
                 <div class="row g-5">
                     <div class="col-lg-4 col-md-6">
                         <h5 class="text-white mb-4">Company</h5>
-                        <a class="btn btn-link text-white-50" href="about.html">About Us</a>
-                        <a class="btn btn-link text-white-50" href="contact.html">Contact Us</a>
-                        <a class="btn btn-link text-white-50" href="dashboard.html">Dashboard</a>
+                        <a class="btn btn-link text-white-50" href="">About Us</a>
+                        <a class="btn btn-link text-white-50" href="">Contact Us</a>
+                        <a class="btn btn-link text-white-50" href="">Dashboard</a>
                         <a class="btn btn-link text-white-50" href="">Privacy Policy</a>
                         <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
                     </div>
