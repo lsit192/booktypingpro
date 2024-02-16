@@ -9,4 +9,5 @@ const pages = {
     "page8": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
     "page9": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
     "page10": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
+    "page11": `Hello Lalit * How are you`
 }
