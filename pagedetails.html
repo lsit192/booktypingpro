@@ -71,106 +71,121 @@
         <!-- Jobs Start -->
         <div class="container-xxl py-5">
             <div class="container">
-                <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">RESULT</h4><hr>
-                <div class="row" id="employeeDetails">
-                    <div class="col-lg-4">
-                        <p>Employee Name:- <span>LSIT Developments</span></p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>Work Assignment Date:- <span>20 feb 2024</span></p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>Work Submission Date:- <span>27 feb 2024</span></p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>Pages Completed:- <span>25</span></p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>Total Accuracy:- <span id="totalAccuracy">0%</span></p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>Total Pages:- <span>500</span></p>
-                    </div>
+                <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">PAGE DETAIL</h4>
+                <div class="row" style="text-align: center;" >
+                    
                 </div>
-                <div class="row" id="pages" style="text-align: center; 
-                background-color: rgb(217, 255, 230);">
+                <div class="row" style="text-align: center;" id="pageDetails">
                     
                 </div>
                 <hr>
-
+                <span><p style="color: rgb(40, 216, 52);">Note: Green color indicate correct word</p>
+                    <p style="color: red;">Note: Red color indicate word is missing</p>
+                    <p style="color: blue;">Note: Blue color indicate extra word</p></span>
             </div>
         </div>
         <!-- Jobs End -->
         <script src="pages.js"></script>
         <script>
-            var temp = {
-    "page1": `nknfgangngnglknmhalmn * aagraaaagabgg * anfjkangkjnkjlnagnlanm  * laknglanglahnlam; * mlalkanglanlg nknfgangangnglknmhaalgmn * aagaafagbgaag * anfjkangkjnkjlnagnanm  * laknglanglnglam; * mlalkanglanlgnnmhaalgmn * aagaafagabgaag * anfjkangkgnlanm  * laknglaglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page2": `nknfgangangngknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page3": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page4": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page5": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page6": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page7": `nknfgangangnglknmhaalgmn * aagaafagbgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page8": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page9": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page10": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page11": `Hello Llit * How are you`
-}
-
-                
-                var correctPages = 0;
-                var wrongPages = 0;
-            var totalAccuracy = 0;
-            for(var i=0;i<11;i++){
-                
-                const content1 = pages["page" + (i+1)];
-                const contentList = content1.split("*");
-                const content2 = temp["page" + (i+1)];
-                var tempList = content2.split("*");
-                document.getElementById("pages").innerHTML += `<hr><div class="col-sm-4">
-                        <p>Page ${i+1}</p>
+           const temp = "nknfgangangnglknmhalmn * aagraaaagabgg * anfjkangkjnkjlnagnlanm  * laknglanglahnlam; * mlalkanglanlg nknfgangangnglknmhaalgmn * aagaafagbgaag * anfjkangkjnkjlnagnanm  * laknglanglnglam; * mlalkanglanlgnnmhaalgmn * aagaafagabgaag * anfjkangkgnlanm  * laknglaglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg";
+           const queryParams = new URLSearchParams(window.location.search);
+            // Get the value of a specific parameter
+            const param1Value = queryParams.get('page');
+            const content = pages["page" + param1Value];
+            const contentList = content.split("*");
+            var tempList = temp.split("*");
+            for(var i = 0; i<contentList.length; i++){
+                document.getElementById("pageDetails").innerHTML +=
+                    `<div class="col-sm-6" id="fieldDetails">
+                        <p>FIELD <span>${i+1}</span></p>
                     </div>
-                    <div class="col-sm-4" id="accuracy-${i+1}">
+                    <div class="col-sm-6" id="fieldDetails">
+                        <p>ACCURACY:- <span id="percentage-${i+1}"></span></p>
+                    </div>
+                    <hr><div class="col-sm-4">
+                        <p id="textTitle">ORIGINAL TEXT</p><hr>
+                        <div id="OriginalText-${i+1}"></div><hr>
                     </div>
                     <div class="col-sm-4">
-                        <p><a href="pagedetails.html?page=${i+1}">Check Details</a></p>
+                        <p id="textTitle">ENTERED TEXT</p><hr>
+                        <div id="EnteredText-${i+1}"></div><hr>
+                    </div>
+                    <div class="col-sm-4">
+                        <p id="textTitle">DIFFERENCE</p><hr>
+                        <div id="DiffText-${i+1}"></div><hr>
                     </div>`;
-                    
+                }
 
-                    for(var j=0;j<contentList.length;j++){
-                        if(tempList[j] == contentList[j]){
-                            correctPages++;
+            var res = "";
+            var t = tempList;
+            var wrong = 0;
+            var correctPages = 0;
+            var wrongPages = 0;
+            for(var i = 0; i<contentList.length; i++){
+                var n = 0;
+                if(tempList[i] == contentList[i]){
+                    document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${contentList[i]}</p>`;
+                    document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${tempList[i]}</p>`;
+                    correctPages++;
+                }else{
+                    document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:red">${contentList[i]}</p>`;
+                    document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${tempList[i]}</p>`;
+                    wrongPages++;
+                }
+
+                while(contentList[i].length > n){
+                        if(contentList[i][n] ==  t[i][n]){
+                            res += `<span style="color:rgb(40, 216, 52)">${tempList[i][n]}</span>`;
+                            n++;
+                        }else if(contentList[i].length > t[i].length){
+                            t[i] = t[i].slice(0, n) + contentList[i][n] + t[i].slice(n);
+                            res += `<span style="color:red">${contentList[i][n]}</span>`;
+                            //document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${res}</p>`;
+                            n++;
+                            wrong++;
+                        }else if(contentList[i].length < t[i].length){
+                            res += `<span style="color:blue">${tempList[i][n]}</span>`;
+                            t[i] = t[i].slice(0, n) + t[i].slice(n+1);
+                            wrong++;
                         }else{
-                            wrongPages++;
+                            res += `<span style="color:red">${contentList[i][n]}</span>`;
+                            t[i] = t[i].slice(0, n) + contentList[i][n] + t[i].slice(n);
+                            n++;
+                            wrong++;
                         }
                     }
 
-                    document.getElementById("accuracy-"+(i+1)).innerHTML += (100 - (wrongPages/contentList.length)*100) + "%";
-                    totalAccuracy += (wrongPages/contentList.length)*100;
-                    wrongPages = 0
-                }
-                document.getElementById("totalAccuracy").innerHTML = (100 - (totalAccuracy/(11*100))*100).toFixed(2);
-       
+                wrongPerc = (wrong/contentList[i].length) * 100;
+                document.getElementById("DiffText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${res}</p>`;
+                document.getElementById("percentage-"+(i+1)).innerHTML += (100 - wrongPerc).toFixed(0) + "%";
+                wrong = 0;
+                res = ""
+            }
+
         </script>
 
         <style>
-            #employeeDetails{
+            #fieldDetails{
                 border-style: none;
-                text-align: center;
-                font-size: 15px;
-                border-style: none;
-                background-color: rgb(158, 255, 174);
-                padding-top: 20px;
-                padding-bottom: 20px;
-                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                padding-top: 12px;
+                font-size: 16px;
+                background-color: rgb(204, 255, 206);
             }
 
-            #pages{
-                font-size: 15px;
-                font-variant:small-caps;
-                font-family:sans-serif;
+            #pageDetails{
+                background-color: rgb(255, 255, 255);
+                font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                font-size: 18px;
+                font-weight: bold;
             }
 
+            #textTitle{
+                font-size: 15px;
+                font-variant: small-caps;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+                font-weight: bold;
+                color: rgb(150, 150, 150);
+            }
         </style>
 
         <!-- Footer Start -->
