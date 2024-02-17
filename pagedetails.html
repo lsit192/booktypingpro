@@ -59,11 +59,12 @@
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="dashboard.html" class="dropdown-item">Dashboard</a>
                             <a href="pages.html" class="dropdown-item active">Start Typing</a>
+                            <a href="login.html" onclick="logout()" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="" id="username" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -87,13 +88,17 @@
         <!-- Jobs End -->
         <script src="pages.js"></script>
         <script>
-           const temp = "nknfgangangnglknmhalmn * aagraaaagabgg * anfjkangkjnkjlnagnlanm  * laknglanglahnlam; * mlalkanglanlg nknfgangangnglknmhaalgmn * aagaafagbgaag * anfjkangkjnkjlnagnanm  * laknglanglnglam; * mlalkanglanlgnnmhaalgmn * aagaafagabgaag * anfjkangkgnlanm  * laknglaglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg";
-           const queryParams = new URLSearchParams(window.location.search);
+            if(sessionStorage.getItem("userData") == null || sessionStorage.getItem("userData") == "null"){
+                location = "login.html";
+            }
+            document.getElementById("username").innerHTML = userData["name"];
+            const queryParams = new URLSearchParams(window.location.search);
             // Get the value of a specific parameter
             const param1Value = queryParams.get('page');
-            const content = pages["page" + param1Value];
-            const contentList = content.split("*");
-            var tempList = temp.split("*");
+            const content1 = pages["page" + param1Value];
+            const contentList = content1.split("*");
+            const content2 = enteredText["page" + param1Value];
+            var tempList = content2.split("*");
             for(var i = 0; i<contentList.length; i++){
                 document.getElementById("pageDetails").innerHTML +=
                     `<div class="col-sm-6" id="fieldDetails">
@@ -126,10 +131,12 @@
                 if(tempList[i] == contentList[i]){
                     document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${contentList[i]}</p>`;
                     document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${tempList[i]}</p>`;
+                    document.getElementById("percentage-"+(i+1)).innerHTML += "100%";
                     correctPages++;
                 }else{
                     document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:red">${contentList[i]}</p>`;
                     document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${tempList[i]}</p>`;
+                    document.getElementById("percentage-"+(i+1)).innerHTML += "0%";
                     wrongPages++;
                 }
 
@@ -155,13 +162,13 @@
                         }
                     }
 
-                wrongPerc = (wrong/contentList[i].length) * 100;
+                wrongPerc = (wrong/tempList[i].length) * 100;
+
                 document.getElementById("DiffText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${res}</p>`;
-                document.getElementById("percentage-"+(i+1)).innerHTML += (100 - wrongPerc).toFixed(0) + "%";
+                //document.getElementById("percentage-"+(i+1)).innerHTML += Math.abs((wrongPerc).toFixed(0) - 100) + "%";
                 wrong = 0;
                 res = ""
             }
-
         </script>
 
         <style>

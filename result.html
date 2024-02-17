@@ -59,11 +59,12 @@
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="dashboard.html" class="dropdown-item">Dashboard</a>
                             <a href="pages.html" class="dropdown-item active">Start Typing</a>
+                            <a href="login.html" onclick="logout()" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="" id="username" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -74,22 +75,22 @@
                 <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">RESULT</h4><hr>
                 <div class="row" id="employeeDetails">
                     <div class="col-lg-4">
-                        <p>Employee Name:- <span>LSIT Developments</span></p>
+                        <p>Employee Name:- <span id="name">LSIT Developments</span></p>
                     </div>
                     <div class="col-lg-4">
-                        <p>Work Assignment Date:- <span>20 feb 2024</span></p>
+                        <p>Work Assignment Date:- <span id="startDate">20 feb 2024</span></p>
                     </div>
                     <div class="col-lg-4">
-                        <p>Work Submission Date:- <span>27 feb 2024</span></p>
+                        <p>Work Submission Date:- <span id="lastDate">27 feb 2024</span></p>
                     </div>
                     <div class="col-lg-4">
-                        <p>Pages Completed:- <span>25</span></p>
+                        <p>Pages Completed:- <span id="completedPages"></span></p>
                     </div>
                     <div class="col-lg-4">
                         <p>Total Accuracy:- <span id="totalAccuracy">0%</span></p>
                     </div>
                     <div class="col-lg-4">
-                        <p>Total Pages:- <span>500</span></p>
+                        <p>Total Pages:- <span id="totalPages">500</span></p>
                     </div>
                 </div>
                 <div class="row" id="pages" style="text-align: center; 
@@ -103,29 +104,23 @@
         <!-- Jobs End -->
         <script src="pages.js"></script>
         <script>
-            var temp = {
-    "page1": `nknfgangngnglknmhalmn * aagraaaagabgg * anfjkangkjnkjlnagnlanm  * laknglanglahnlam; * mlalkanglanlg nknfgangangnglknmhaalgmn * aagaafagbgaag * anfjkangkjnkjlnagnanm  * laknglanglnglam; * mlalkanglanlgnnmhaalgmn * aagaafagabgaag * anfjkangkgnlanm  * laknglaglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page2": `nknfgangangngknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page3": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page4": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page5": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page6": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page7": `nknfgangangnglknmhaalgmn * aagaafagbgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page8": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page9": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page10": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page11": `Hello Llit * How are you`
-}
+            if(sessionStorage.getItem("userData") == null || sessionStorage.getItem("userData") == "null"){
+                location = "login.html";
+            }
+            document.getElementById("username").innerHTML = userData["name"];
+            document.getElementById("name").innerHTML = userData["name"];
+            document.getElementById("startDate").innerHTML = userData["startDate"];
+            document.getElementById("lastDate").innerHTML = userData["lastDate"];
+            document.getElementById("completedPages").innerHTML = userData["pagesCompleted"];
+            document.getElementById("totalPages").innerHTML = userData["totalPages"];
 
-                
-                var correctPages = 0;
-                var wrongPages = 0;
+            var correctPages = 0;
+            var wrongPages = 0;
             var totalAccuracy = 0;
-            for(var i=0;i<11;i++){
-                
+            for(var i=0;i<Object.keys(enteredText).length;i++){
                 const content1 = pages["page" + (i+1)];
                 const contentList = content1.split("*");
-                const content2 = temp["page" + (i+1)];
+                const content2 = enteredText["page" + (i+1)];
                 var tempList = content2.split("*");
                 document.getElementById("pages").innerHTML += `<hr><div class="col-sm-4">
                         <p>Page ${i+1}</p>
@@ -135,7 +130,6 @@
                     <div class="col-sm-4">
                         <p><a href="pagedetails.html?page=${i+1}">Check Details</a></p>
                     </div>`;
-                    
 
                     for(var j=0;j<contentList.length;j++){
                         if(tempList[j] == contentList[j]){
@@ -145,9 +139,9 @@
                         }
                     }
 
-                    document.getElementById("accuracy-"+(i+1)).innerHTML += (100 - (wrongPages/contentList.length)*100) + "%";
+                    document.getElementById("accuracy-"+(i+1)).innerHTML += (100 - (wrongPages/contentList.length)*100).toFixed(2) + "%";
                     totalAccuracy += (wrongPages/contentList.length)*100;
-                    wrongPages = 0
+                    wrongPages = 0;
                 }
                 document.getElementById("totalAccuracy").innerHTML = (100 - (totalAccuracy/(11*100))*100).toFixed(2);
        

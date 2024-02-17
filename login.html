@@ -88,10 +88,17 @@
             function Login(){
                 const username = document.getElementById("username").value;
                 const password = document.getElementById("password").value;
-                console.log(username)
-                console.log(password)
                 if(username == "test@gmail.com"){
                     if(password == "12345"){
+                        var userData = {
+                            "name": "Lalit Sharma",
+                            "email": "test@gmail.com",
+                            "totalPages": 500,
+                            "pagesCompleted": 10,
+                            "startDate": "2024-02-12",
+                            "lastDate": "2024-02-20"
+                        }
+                        sessionStorage.setItem("userData", btoa(JSON.stringify(userData)))
                         location = "dashboard.html";
                     }else{
                         document.getElementById("test").innerHTML = "Incorrect Password";
