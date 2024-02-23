@@ -59,11 +59,12 @@
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="dashboard.html" class="dropdown-item">Dashboard</a>
                             <a href="pages.html" class="dropdown-item active">Start Typing</a>
+                            <a href="login.html" onclick="logout()" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="" id="username" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -82,10 +83,19 @@
             </div>
         </div>
         <!-- Jobs End -->
-
+        <script src="pages.js"></script>
         <script>
-            for(var i=1;i<=10;i++){
-                document.getElementById("pages").innerHTML += '<option value="'+ i +'">Page '+ i +'</option>';
+            if(sessionStorage.getItem("userData") == null || sessionStorage.getItem("userData") == "null"){
+                location = "login.html";
+            }
+            document.getElementById("username").innerHTML = userData["name"];
+
+            for(var i=1;i<=userData["totalPages"];i++){
+                if(i == (parseInt(userData["pagesCompleted"])+1 )){
+                    document.getElementById("pages").innerHTML += '<option value="'+ i +'">Page '+ i +'</option>';
+                }else{
+                    document.getElementById("pages").innerHTML += '<option value="'+ i +'" disabled>Page '+ i +'</option>';
+                }
             }
             document.getElementById("pages").addEventListener("change", function() {
             var selectElement = document.getElementById("pages");

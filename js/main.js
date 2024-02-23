@@ -1,3 +1,7 @@
+function logout(){
+    sessionStorage.clear();
+}
+
 (function ($) {
     "use strict";
 

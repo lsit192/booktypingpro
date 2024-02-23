@@ -10,7 +10,6 @@
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,19 +85,39 @@
 
         <script>
             function Login(){
-                const username = document.getElementById("username").value;
-                const password = document.getElementById("password").value;
-                console.log(username)
-                console.log(password)
-                if(username == "test@gmail.com"){
+                const data = {
+                    "username": document.getElementById("username").value,
+                    "password": document.getElementById("password").value
+                }
+                
+                if(data["username"] != "" && data["password"] != ""){
+                    login(data);
+                }else{
+                    if(data["username"] == ""){
+                        alert("Enter Email");
+                    }else{
+                        alert("Enter Password");
+                    }
+                }
+                
+                /*if(username == "test@gmail.com"){
                     if(password == "12345"){
+                        var userData = {
+                            "name": "Lalit Sharma",
+                            "email": "test@gmail.com",
+                            "totalPages": 500,
+                            "pagesCompleted": 10,
+                            "startDate": "2024-02-12",
+                            "lastDate": "2024-02-20"
+                        }
+                        sessionStorage.setItem("userData", btoa(JSON.stringify(userData)))
                         location = "dashboard.html";
                     }else{
                         document.getElementById("test").innerHTML = "Incorrect Password";
                     }
                 }else{
                         document.getElementById("test").innerHTML = "User Not Found";
-                }
+                }*/
             }
         </script>
 
@@ -249,6 +268,8 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+    <script src="js/lsit.js"></script>
     <script src="js/main.js"></script>
 </body>
 

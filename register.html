@@ -91,17 +91,29 @@
         </div>
 
         <script>
-            function Register(){
-                const fullname = document.getElementById("fullname").value;
-                const email = document.getElementById("email").value;
-                const pagesCount = document.getElementById("pagesCount").value;
-                const LastDate = document.getElementById("LastDate").value;
-                console.log(fullname)
-                console.log(email)
-                console.log(pagesCount)
-                console.log(LastDate)
+            const today = new Date();
+            var todaysDate = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, '0') + "-" + today.getDate();
 
-                
+            function generatePassword() {
+                const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let password = '';
+                for (let i = 0; i < 8; i++) {
+                    const randomIndex = Math.floor(Math.random() * charset.length);
+                    password += charset[randomIndex];
+                }
+                return password;
+                }
+
+            function Register(){
+                const data = {
+                    "email": document.getElementById("email").value,
+                    "fullname": document.getElementById("fullname").value,
+                    "pagesCount": document.getElementById("pagesCount").value,
+                    "startDate": todaysDate,
+                    "lastDate": document.getElementById("LastDate").value,
+                    "password": generatePassword()
+                }
+                register(data);
             }
         </script>
 
@@ -252,6 +264,8 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+    <script src="js/lsit.js"></script>
     <script src="js/main.js"></script>
 </body>
 
