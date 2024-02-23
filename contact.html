@@ -63,7 +63,7 @@
                     </div>
                     <a href="contact.html" class="nav-item nav-link active">Contact</a>
                 </div>
-                <a href="login.html" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="login.html" id="username" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -230,6 +230,7 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
+    <script>document.getElementById("username").innerHTML =  JSON.parse(atob(sessionStorage.getItem("userData")))["name"];</script>
     <script src="js/main.js"></script>
 </body>
 

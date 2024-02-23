@@ -77,13 +77,17 @@
                     <input type="password" placeholder="Password" id="password">
                 </div>
                 <div class="col-lg-12" id="alert">
-                    <button class="button-29" onclick="Login()">LOGIN</button>
+                    <button class="button-29" id="username" onclick="Login()">LOGIN</button>
                     <span id="test"></span>
                 </div>
             </div>
         </div>
 
         <script>
+            if(sessionStorage.getItem("userData") != null && sessionStorage.getItem("userData") != "null"){
+                location = "dashboard.html";
+            }
+
             function Login(){
                 const data = {
                     "username": document.getElementById("username").value,

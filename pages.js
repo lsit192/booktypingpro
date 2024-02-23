@@ -131,38 +131,38 @@
  "page4": "The Java Virtual Machine\
  Machine language consists of very simple instructions that can be executed directly by\
  the CPU of a computer. Almost all programs, though, are written in high-level programming\
- languages such as Java, Pascal, or C++. A program written in a high-level language cannot\
+ languages such as Java, Pascal, or C++. ® A program written in a high-level language cannot\
  be run directly on any computer. First, it has to be translated into machine language. This\
  translation can be done by a program called a compiler. A compiler takes a high-level-language\
  program and translates it into an executable machine-language program. Once the translation\
  is done, the machine-language program can be run any number of times, but of course it can only\
  be run on one type of computer (since each type of computer has its own individual machine\
- language). If the program is to run on another type of computer it has to be re-translated,\
+ language).® If the program is to run on another type of computer it has to be re-translated,\
  using a different compiler, into the appropriate machine language.\
  There is an alternative to compiling a high-level language program. Instead of using a\
  compiler, which translates the program all at once, you can use an interpreter, which translates\
  it instruction-by-instruction, as necessary. An interpreter is a program that acts much like a\
- CPU, with a kind of fetch-and-execute cycle. In order to execute a program, the interpreter\
+ CPU, with a kind of fetch-and-execute cycle. ® In order to execute a program, the interpreter\
  runs in a loop in which it repeatedly reads one instruction from the program, decides what is\
  necessary to carry out that instruction, and then performs the appropriate machine-language\
- commands to do so.\
+ commands to do so.®\
  one use of interpreters is to execute high-level language programs. For example, the programming\
  language Lisp is usually executed by an interpreter rather than a compiler. However,\
  interpreters have another purpose: they can let you use a machine-language program meant for\
  one type of computer on a completely different type of computer. For example, there is a program\
- called “Virtual PC” that runs on Macintosh computers. Virtual PC is an interpreter that\
+ called “Virtual PC” that runs on Macintosh computers. ® Virtual PC is an interpreter that\
  executes machine-language programs written for IBM-PC-clone computers. If you run Virtual\
  PC on your Macintosh, you can run any PC program, including programs written for Windows.\
  (Unfortunately, a PC program will run much more slowly than it would on an actual IBM clone.\
  The problem is that Virtual PC executes several Macintosh machine-language instructions for\
- each PC machine-language instruction in the program it is interpreting. Compiled programs\
+ each PC machine-language instruction in the program it is interpreting. ® Compiled programs\
  are inherently faster than interpreted programs.\
  The designers of Java chose to use a combination of compilation and interpretation. Programs\
  written in Java are compiled into machine language, but it is a machine language for\
  a computer that doesn’t really exist. This so-called “virtual” computer is known as the Java\
  virtual machine. The machine language for the Java virtual machine is called Java bytecode. There\
  is no reason why Java bytecode could not be used as the machine language of a\
- real computer, rather than a virtual computer.\
+ real computer, rather than a virtual computer.®\
  However, one of the main selling points of Java is that it can actually be used on any\
  computer. All that the computer needs is an interpreter for Java bytecode. Such an interpreter\
  simulates the Java virtual machine in the same way that Virtual PC simulates a PC computer.\
@@ -170,26 +170,26 @@
  once a computer has a Java bytecode interpreter, it can run any Java bytecode program. And\
  the same Java bytecode program can be run on any computer that has such an interpreter.\
  This is one of the essential features of Java: the same compiled program can be run on many\
- different types of computers.\
+ different types of computers.®\
  Why, you might wonder, use the intermediate Java bytecode at all? Why not just distribute\
  the original Java program and let each person compile it into the machine language of whatever\
  computer they want to run it on? There are many reasons. First of all, a compiler has to\
- understand Java, a complex high-level language. The compiler is itself a complex program. A\
+ understand Java, a complex high-level language. The compiler is itself a complex program.® A\
  Java bytecode interpreter, on the other hand, is a fairly small, simple program. This makes it\
  easy to write a bytecode interpreter for a new type of computer; once that is done, that computer\
- can run any compiled Java program. It would be much harder to write a Java compiler for the\
+ can run any compiled Java program. ®It would be much harder to write a Java compiler for the\
  same computer.\
  Furthermore, many Java programs are meant to be downloaded over a network. This leads\
  to obvious security concerns: you don’t want to download and run a program that will damage\
  your computer or your files. The bytecode interpreter acts as a buffer between you and the\
  program you download. You are really running the interpreter, which runs the downloaded\
- program indirectly. The interpreter can protect you from potentially dangerous actions on the\
+ program indirectly.® The interpreter can protect you from potentially dangerous actions on the\
  part of that program.\
  i should note that there is no necessary connection between Java and Java bytecode. A program\
  written in Java could certainly be compiled into the machine language of a real computer.\
  And programs written in other languages could be compiled into Java bytecode. However, it is\
  the combination of Java and Java bytecode that is platform-independent, secure, and network\
- compatible while allowing you to program in a modern high-level object-oriented language.\
+ compatible while allowing you to program in a modern high-level object-oriented language.®\
  I should also note that the really hard part of platform-independence is providing a “Graphical\
  User Interface” with windows, buttons, etc. that will work on all the platforms that\
  support Java.",
@@ -7279,21 +7279,6 @@
  "page624":"If the set of constraints cannot be solved, there exist no input which cancause the selected path to execute. In other words, the selected path is saidto be infeasible. An infeasible path does not imply that one or more components of a pathpredicate expression are unsatisfiable. It simply means that the total combination of all the components in a path predicate expression is unsatisfiable.Infeasibility of a path predicate expression suggests that one considers otherpaths in an effort to meet a chosen path selection criterion.Example. Consider the path shown in Figure 4.10 from the CFG of Figure 4.7.Table 4.7 shows the nodes of the path in column 1, the corresponding descriptionof each node in column 2, and the interpretation of each node in column 3. The intended evaluation of each interpreted predicate can be found in column 1 of thesame row.We show the path predicate expression of the path under consideration in Figure 4.13 for the sake of clarity. The rows of Figure 4.13 have beenobtained from Table 4.11 by combining each interpreted predicate in column 3 withits intended evaluation in column 1. Now the reader may compare Figures 4.11and 4.13 to note that the predicates in Figure 4.13 are interpretations of the corresponding predicates in Figure 4.11 We show in Figure 4.14 an infeasible path appearing in the CFG ofFigure 4.7. The path predicate and its interpretation are shown in Table 4.8, and thepath predicate expression is shown in Figure 4.15. The path predicate expression isunsolvable because the constraint 0 > 0 ≡ True is unsatisfiable. Therefore, the pathshown in Figure 4.14 is an infeasible path.",
  "page625":"Generating Input Data from Path Predicate Expression: We must solvethe corresponding path predicate expression in order to generate input data whichcan force a program to execute a selected path. Let us consider the path predicateexpression shown in Figure 4.13. We observe that constraint 1 is always satisfied.Constraints 1 and 5 must be solved together to obtain AS 1. Similarly, constraints2, 3, and 4 must be solved together. We note that MIN < = value[0] < = MAXand value[0]! = −999. Therefore, we have many choices to select values of MIN,MAX, and value[0]. An instance of the solutions of the constraints of Figure 4.13is shown in Figure 4.16  We give examples of selected test data to achieve complete statement and branchcoverage. We show four sets of test data in Table 4.9. The first two data sets coverall statements of the CFG in Figure 4.7. However, we need all four sets of testdata for complete branch coverage.If we execute the method ReturnAverage shown in Figure 4.6 with the foursets of test input data shown in Figure 4.9, then each statement of the method isexecuted at least once, and every Boolean condition evaluates once to true andonce to false. We have thoroughly tested the method in the sense of completebranch coverage. However, it is possible to introduce simple faults in the methodwhich can go undetected when the method with the above four sets of test data isexecuted. Two examples of fault insertion are given below. in the method. Here the fault is that the method computes the average of thetotal number of inputs, denoted by ti, rather than the total number of valid inputs,denoted by tv."
 
-}
-
-
-
-const enteredText ={
-    "page1": `nknfgangangnglknmhaagmn ® aagaafagabgaag * anfjkangkjnkjlngnlanm  * laknglanglanglam; * mlalkanglanlg nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlgnknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page2": `nknfgangangngknmhaaalgmn * aagaafaabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page3": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page4": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page5": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page6": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page7": `nknfgangangnglknmhaalgmn * aagaafagbgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page8": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page9": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
-    "page10": `nknfgangangnglknmhaalgmn * aagaafagabgaag * anfjkangkjnkjlnagnlanm  * laknglanglanglam; * mlalkanglanlg`,
 }
 
 const userData = JSON.parse(atob(sessionStorage.getItem("userData")));
