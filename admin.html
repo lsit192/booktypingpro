@@ -31,7 +31,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="employee_list()">
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -57,8 +57,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Dashboard</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="dashboard.html" class="dropdown-item">Dashboard</a>
-                            <a href="pages.html" class="dropdown-item active">Start Typing</a>
+                            <a href="dashboard.html" class="dropdown-item active">Dashboard</a>
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -71,12 +70,15 @@
         <!-- Jobs Start -->
         <div class="container-xxl py-5">
             <div class="container">
-                <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Select Page</h4>
+                <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Employees</h4>
                 <div class="row">
-                    <div class="col-lg-12" style="text-align: center;">
-                        <select id="pages">
-                            <option value="0">Select Page:</option>
-                        </select>
+                    <div class="col-lg-12">
+                        <table id="customers">
+                            <tr>
+                                <td>Employee Id</td>
+                                <td id="name">Details</td>
+                            </tr>
+                          </table>
                     </div>
                 </div>
             </div>
@@ -84,20 +86,142 @@
         <!-- Jobs End -->
 
         <script>
-            for(var i=1;i<=10;i++){
-                document.getElementById("pages").innerHTML += '<option value="'+ i +'">Page '+ i +'</option>';
-            }
-            document.getElementById("pages").addEventListener("change", function() {
-            var selectElement = document.getElementById("pages");
-            var selectedOption = selectElement.options[selectElement.selectedIndex].text;
-            location = "typepages.html?content="+selectedOption;
-            });
+           function show(data){
+            for(var i=0;i<data["Count"];i++){
+                // Specify the end date
+                const startDate = new Date(data["Items"][i]["startDate"]["S"]);
+                const endDate = new Date(data["Items"][i]["lastDate"]["S"]); // Replace '2024-03-01' with your desired end date
+                // Specify the start date and end date
+
+                // Calculate the difference in milliseconds between the two dates
+                const difference = endDate - startDate;
+
+                // Convert milliseconds to days
+                const daysBetween = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+                // Get today's date
+                const today = new Date();
+
+                // Calculate the difference in milliseconds between the two dates
+                const differenceMs = endDate - today;
+
+                // Convert milliseconds to days
+                const daysLeft = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+                document.getElementById("customers").innerHTML += `<tr>
+                                                                    <td>Name: ${data["Items"][i]["fullname"]["S"]}<br>
+                                                                        ${data["Items"][i]["email"]["S"]}
+                                                                    </td>
+                                                                    <td>
+                                                                        Pages Completed: ${data["Items"][i]["pagesCompleted"]["S"]}<br>
+                                                                        Starting Date: ${data["Items"][i]["startDate"]["S"]}<br>
+                                                                        Last Date: ${data["Items"][i]["lastDate"]["S"]}<br>
+                                                                        Total Days: ${daysBetween}<br>
+                                                                        Days Left: ${daysLeft}<br>
+                                                                        <button id=${data["Items"][i]["email"]["S"]} onclick="checkResult(this)" class="button-17">Check Result</button>
+                                                                    </td>
+                                                                </tr>`;
+                                                                }
+                                                            }
+
+                                            function checkResult(obj){
+                                                getUserData(obj.id);
+                                            }
         </script>
 
         <style>
-            #pages{
-                width: 60%;
-                height: 1cm;
+            #customers {
+              font-family: Arial, Helvetica, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            #customers td, #customers th {
+              border: 1px solid #ddd;
+              padding: 8px;
+            }
+            
+            #customers tr:nth-child(odd){background-color: #f2f2f2;}
+            
+            #customers tr:hover {background-color: #ddd;}
+            
+            #customers th {
+              padding-top: 12px;
+              padding-bottom: 12px;
+              text-align: left;
+              background-color: #04AA6D;
+              color: white;
+            }
+
+            /* CSS */
+            .button-17 {
+            align-items: center;
+            appearance: none;
+            background-color: #fff;
+            border-radius: 24px;
+            border-style: none;
+            box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+            box-sizing: border-box;
+            color: #3c4043;
+            cursor: pointer;
+            display: inline-flex;
+            fill: currentcolor;
+            font-family: "Google Sans",Roboto,Arial,sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            height: 48px;
+            justify-content: center;
+            letter-spacing: .25px;
+            line-height: normal;
+            max-width: 100%;
+            overflow: visible;
+            padding: 2px 24px;
+            position: relative;
+            text-align: center;
+            text-transform: none;
+            transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            will-change: transform,opacity;
+            z-index: 0;
+            }
+
+            .button-17:hover {
+            background: #F6F9FE;
+            color: #174ea6;
+            }
+
+            .button-17:active {
+            box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+            outline: none;
+            }
+
+            .button-17:focus {
+            outline: none;
+            border: 2px solid #4285f4;
+            }
+
+            .button-17:not(:disabled) {
+            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+            }
+
+            .button-17:not(:disabled):hover {
+            box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+            }
+
+            .button-17:not(:disabled):focus {
+            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+            }
+
+            .button-17:not(:disabled):active {
+            box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+            }
+
+            .button-17:disabled {
+            box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
             }
         </style>
 
@@ -171,6 +295,8 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+    <script src="js/lsit.js"></script>
     <script src="js/main.js"></script>
 </body>
 

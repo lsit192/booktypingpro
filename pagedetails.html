@@ -31,7 +31,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="getPage()">
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -93,13 +93,12 @@
             }
             document.getElementById("username").innerHTML = userData["name"];
             const queryParams = new URLSearchParams(window.location.search);
-            // Get the value of a specific parameter
             const param1Value = queryParams.get('page');
-            const content1 = pages["page" + param1Value];
-            const contentList = content1.split("*");
-            const content2 = enteredText["page" + param1Value];
-            var tempList = content2.split("*");
-            for(var i = 0; i<contentList.length; i++){
+            const originalPage = pages["page" + param1Value];
+            const originalPageList = originalPage.split("®");
+
+            function fieldDetails(data){
+                for(var i = 0; i<originalPageList.length; i++){
                 document.getElementById("pageDetails").innerHTML +=
                     `<div class="col-sm-6" id="fieldDetails">
                         <p>FIELD <span>${i+1}</span></p>
@@ -121,53 +120,63 @@
                     </div>`;
                 }
 
-            var res = "";
-            var t = tempList;
-            var wrong = 0;
-            var correctPages = 0;
-            var wrongPages = 0;
-            for(var i = 0; i<contentList.length; i++){
-                var n = 0;
-                if(tempList[i] == contentList[i]){
-                    document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${contentList[i]}</p>`;
-                    document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${tempList[i]}</p>`;
-                    document.getElementById("percentage-"+(i+1)).innerHTML += "100%";
-                    correctPages++;
-                }else{
-                    document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:red">${contentList[i]}</p>`;
-                    document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${tempList[i]}</p>`;
-                    document.getElementById("percentage-"+(i+1)).innerHTML += "0%";
-                    wrongPages++;
+                var enteredFields = data["pageFields"];
+                // Convert JSON object to list
+                var tempList = [];
+                var res = "";
+                var t = tempList;
+                var wrong = 0;
+
+                for (var key in enteredFields) {
+                    if (enteredFields.hasOwnProperty(key)) {
+                        tempList.push(enteredFields[key]);
+                    }
                 }
 
-                while(contentList[i].length > n){
-                        if(contentList[i][n] ==  t[i][n]){
+                var t = tempList;
+                var correctPages = 0;
+                var wrongPages = 0;
+                for(var i = 0; i<originalPageList.length; i++){
+                    var n = 0;
+                    if(data["pageFields"]["field"+(i+1)] == originalPageList[i]){
+                        document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${originalPageList[i]}</p>`;
+                        document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${data["pageFields"]["field"+(i+1)]}</p>`;
+                        document.getElementById("percentage-"+(i+1)).innerHTML += "100%";
+                        correctPages++;
+                    }else{
+                        document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:red">${originalPageList[i]}</p>`;
+                        document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${data["pageFields"]["field"+(i+1)]}</p>`;
+                        document.getElementById("percentage-"+(i+1)).innerHTML += "0%";
+                        wrongPages++;
+                    }
+
+                    
+
+                    while(originalPageList[i].length > n){
+                        if(originalPageList[i][n] ==  t[i][n]){
                             res += `<span style="color:rgb(40, 216, 52)">${tempList[i][n]}</span>`;
                             n++;
-                        }else if(contentList[i].length > t[i].length){
-                            t[i] = t[i].slice(0, n) + contentList[i][n] + t[i].slice(n);
-                            res += `<span style="color:red">${contentList[i][n]}</span>`;
+                        }else if(originalPageList[i].length > t[i].length){
+                            t[i] = t[i].slice(0, n) + originalPageList[i][n] + t[i].slice(n);
+                            res += `<span style="color:red">${originalPageList[i][n]}</span>`;
                             //document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${res}</p>`;
                             n++;
                             wrong++;
-                        }else if(contentList[i].length < t[i].length){
+                        }else if(originalPageList[i].length < t[i].length){
                             res += `<span style="color:blue">${tempList[i][n]}</span>`;
                             t[i] = t[i].slice(0, n) + t[i].slice(n+1);
                             wrong++;
                         }else{
-                            res += `<span style="color:red">${contentList[i][n]}</span>`;
-                            t[i] = t[i].slice(0, n) + contentList[i][n] + t[i].slice(n);
+                            res += `<span style="color:red">${originalPageList[i][n]}</span>`;
+                            t[i] = t[i].slice(0, n) + originalPageList[i][n] + t[i].slice(n);
                             n++;
                             wrong++;
                         }
                     }
 
-                wrongPerc = (wrong/tempList[i].length) * 100;
-
-                document.getElementById("DiffText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${res}</p>`;
-                //document.getElementById("percentage-"+(i+1)).innerHTML += Math.abs((wrongPerc).toFixed(0) - 100) + "%";
-                wrong = 0;
-                res = ""
+                    document.getElementById("DiffText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${res}</p>`;
+                    res = ""
+                }
             }
         </script>
 
@@ -182,7 +191,7 @@
             #pageDetails{
                 background-color: rgb(255, 255, 255);
                 font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-                font-size: 18px;
+                font-size: 13px;
                 font-weight: bold;
             }
 
@@ -265,6 +274,8 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+    <script src="js/lsit.js"></script>
     <script src="js/main.js"></script>
 </body>
 
