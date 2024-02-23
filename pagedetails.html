@@ -136,9 +136,10 @@
                 var t = tempList;
                 var correctPages = 0;
                 var wrongPages = 0;
+                
                 for(var i = 0; i<originalPageList.length; i++){
                     var n = 0;
-                    if(data["pageFields"]["field"+(i+1)] == originalPageList[i]){
+                    if(data["pageFields"]["field"+(i+1)].trim() == originalPageList[i].trim()){
                         document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${originalPageList[i]}</p>`;
                         document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${data["pageFields"]["field"+(i+1)]}</p>`;
                         document.getElementById("percentage-"+(i+1)).innerHTML += "100%";
