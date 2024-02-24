@@ -10,6 +10,7 @@ function aws_config(){
 }
 
 function login(Userdata){
+  document.getElementById("test").innerHTML = "Login...";
   aws_config()
   var dynamodb = new AWS.DynamoDB();
   var params = {
