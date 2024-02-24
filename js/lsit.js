@@ -138,6 +138,7 @@ function getUserData(username){
 function PutPages(fields){
   aws_config()
   var s3 = new AWS.S3();
+  document.getElementById("pageBody").innerHTML = "Submitting";
   var params = {
     Body: JSON.stringify(fields),
     Bucket: "booktypingpro-data",
@@ -248,19 +249,6 @@ function getPages(){
       }
      }     
    });
-
-   /*var params = {
-    Bucket: "booktypingpro-data",
-    Key: `test@gmail.com/page1`
-   };
-   s3.getObject(params, function(err, data) {
-     if (err){
-      console.log(err, err.stack); // an error occurred
-     }else{
-      var data = data.Body.toString('utf-8')
-      console.log(JSON.parse(data));           // successful response
-     }
-   });*/
 }
 
 function getPage(){

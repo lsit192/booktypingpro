@@ -97,43 +97,48 @@
             const originalPage = pages["page" + param1Value];
             const originalPageList = originalPage.split("®");
 
-            function fieldDetails(data){
+            function insertBody(){
                 for(var i = 0; i<originalPageList.length; i++){
-                document.getElementById("pageDetails").innerHTML +=
-                    `<div class="col-sm-6" id="fieldDetails">
-                        <p>FIELD <span>${i+1}</span></p>
-                    </div>
-                    <div class="col-sm-6" id="fieldDetails">
-                        <p>ACCURACY:- <span id="percentage-${i+1}"></span></p>
-                    </div>
-                    <hr><div class="col-sm-4">
-                        <p id="textTitle">ORIGINAL TEXT</p><hr>
-                        <div id="OriginalText-${i+1}"></div><hr>
-                    </div>
-                    <div class="col-sm-4">
-                        <p id="textTitle">ENTERED TEXT</p><hr>
-                        <div id="EnteredText-${i+1}"></div><hr>
-                    </div>
-                    <div class="col-sm-4">
-                        <p id="textTitle">DIFFERENCE</p><hr>
-                        <div id="DiffText-${i+1}"></div><hr>
-                    </div>`;
+                    document.getElementById("pageDetails").innerHTML +=
+                        `<div class="col-sm-6" id="fieldDetails">
+                            <p>FIELD <span>${i+1}</span></p>
+                        </div>
+                        <div class="col-sm-6" id="fieldDetails">
+                            <p>ACCURACY:- <span id="percentage-${i+1}"></span></p>
+                        </div>
+                        <hr><div class="col-sm-4">
+                            <p id="textTitle">ORIGINAL TEXT</p><hr>
+                            <div id="OriginalText-${i+1}"></div><hr>
+                        </div>
+                        <div class="col-sm-4">
+                            <p id="textTitle">ENTERED TEXT</p><hr>
+                            <div id="EnteredText-${i+1}"></div><hr>
+                        </div>
+                        <div class="col-sm-4">
+                            <p id="textTitle">DIFFERENCE</p><hr>
+                            <div id="DiffText-${i+1}"></div><hr>
+                        </div>`;
                 }
+            }
 
+            function jsonTostr(data){
                 var enteredFields = data["pageFields"];
-                // Convert JSON object to list
                 var tempList = [];
-                var res = "";
-                var t = tempList;
-                var wrong = 0;
-
                 for (var key in enteredFields) {
                     if (enteredFields.hasOwnProperty(key)) {
                         tempList.push(enteredFields[key]);
                     }
                 }
+                return tempList;
+            }
 
+            function fieldDetails(data){
+                insertBody()
+                var tempList = jsonTostr(data);
                 var t = tempList;
+                // Convert JSON object to list
+                var res = "";
+                var wrong = 0;
                 var correctPages = 0;
                 var wrongPages = 0;
                 
@@ -151,30 +156,41 @@
                         wrongPages++;
                     }
 
-                    
-
+                    var EnteredTextLength = tempList[i].length;
                     while(originalPageList[i].length > n){
-                        if(originalPageList[i][n] ==  t[i][n]){
-                            res += `<span style="color:rgb(40, 216, 52)">${tempList[i][n]}</span>`;
-                            n++;
-                        }else if(originalPageList[i].length > t[i].length){
-                            t[i] = t[i].slice(0, n) + originalPageList[i][n] + t[i].slice(n);
-                            res += `<span style="color:red">${originalPageList[i][n]}</span>`;
-                            //document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${res}</p>`;
-                            n++;
-                            wrong++;
-                        }else if(originalPageList[i].length < t[i].length){
-                            res += `<span style="color:blue">${tempList[i][n]}</span>`;
-                            t[i] = t[i].slice(0, n) + t[i].slice(n+1);
-                            wrong++;
+                        if(EnteredTextLength >= originalPageList[i].length){
+                            if(originalPageList[i][n] ==  t[i][n]){
+                                res += `<span style="color:rgb(40, 216, 52)">${originalPageList[i][n]}</span>`;
+                                n++;
+                            }else if(originalPageList[i].length > t[i].length){
+                                t[i] = t[i].slice(0, n) + originalPageList[i][n] + t[i].slice(n);
+                                res += `<span style="color:red">${originalPageList[i][n]}</span>`;
+                                n++;
+                                wrong++;
+                            }else if(originalPageList[i].length < t[i].length){
+                                res += `<span style="color:blue">${tempList[i][n]}</span>`;
+                                t[i] = t[i].slice(0, n) + t[i].slice(n+1);
+                                wrong++;
+                            }else{
+                                res += `<span style="color:red">${originalPageList[i][n]}</span>`;
+                                t[i] = t[i].slice(0, n) + originalPageList[i][n] + t[i].slice(n);
+                                n++;
+                                wrong++;
+                            }
                         }else{
-                            res += `<span style="color:red">${originalPageList[i][n]}</span>`;
-                            t[i] = t[i].slice(0, n) + originalPageList[i][n] + t[i].slice(n);
-                            n++;
-                            wrong++;
+                            n = originalPageList[i].length;
                         }
                     }
 
+                    var originalPageArray = originalPageList[i].split(" ");
+                    var tempListArray = tempList[i].split(" ")
+                    for(var j=0;j<originalPageArray.length;j++){
+                        if(tempListArray.includes(originalPageArray[j]) && j <= tempListArray.length){
+                            res += `<span style="color:rgb(40, 216, 52)">${originalPageArray[j]} </span>`;
+                        }else{
+                            res += `<span style="color:red">${originalPageArray[j]} </span>`;
+                        }
+                    }
                     document.getElementById("DiffText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${res}</p>`;
                     res = ""
                 }
