@@ -135,6 +135,37 @@ function getUserData(username){
    });
 }
 
+function getUserDashboard(username){
+  aws_config()
+  var dynamodb = new AWS.DynamoDB();
+  var params = {
+    Key: {
+     "email": {
+       S: username
+      }
+    }, 
+    TableName: "booktyping-pro-users"
+   };
+   dynamodb.getItem(params, function(err, data) {
+      if (err){
+          console.log(err, err.stack);
+      }else{
+          if(Object.keys(data).length != 0){
+            const userData = {
+              "name": data["Item"]["fullname"]["S"],
+              "email": data["Item"]["email"]["S"],
+              "totalPages": data["Item"]["pagesCount"]["S"],
+              "pagesCompleted": data["Item"]["pagesCompleted"]["S"],
+              "startDate": data["Item"]["startDate"]["S"],
+              "lastDate": data["Item"]["lastDate"]["S"]
+          }
+          sessionStorage.setItem("userData", btoa(JSON.stringify(userData)));
+          location = "dashboard.html";
+        }
+      }
+   });
+}
+
 function PutPages(fields){
   aws_config()
   var s3 = new AWS.S3();
@@ -212,12 +243,9 @@ function PutPages(fields){
                 document.getElementById("test").innerHTML = "User Not Found";
               }
           }
-       });
-
-      
+       }); 
      }     
    });
-  
 }
 
 
@@ -232,7 +260,7 @@ function getPages(){
       console.log(err, err.stack); // an error occurred
      }else{
       for(var i=0;i<data["Contents"].length;i++){
-        if(data["Contents"][i]["Key"].split("/")[0] == "test@gmail.com"){
+        if(data["Contents"][i]["Key"].split("/")[0] == userData["email"]){
           var params = {
             Bucket: "booktypingpro-data",
             Key: data["Contents"][i]["Key"]

@@ -10,7 +10,6 @@
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,8 +55,8 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dashboard</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="admin.html" class="dropdown-item">Dashboard</a>
-                            <a href="register.html" class="dropdown-item active">Register Employee</a>
+                            <a href="dashboard.html" class="dropdown-item">Dashboard</a>
+                            <a href="login.html" class="dropdown-item">Employee Login</a>
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -69,61 +68,49 @@
         <div class="container-fluid" id="loginPage">
             <div class="row" id="loginContent">
                 <div class="col-lg-12" id="title">
-                    <h3>Register</h3>
+                    <h3>Admin Login</h3>
                 </div>
                 <div class="col-lg-12">
-                    <input type="text" placeholder="Fullname" id="fullname">
+                    <input type="email" placeholder="Username/email" id="username">
                 </div>
                 <div class="col-lg-12">
-                    <input type="email" placeholder="email" id="email">
-                </div>
-                <div class="col-lg-12">
-                    <input type="text" placeholder="Number of pages" id="pagesCount">
-                </div>
-                <div class="col-lg-12">
-                    <input type="date" placeholder="Submission Date" id="LastDate">
+                    <input type="password" placeholder="Password" id="password">
                 </div>
                 <div class="col-lg-12" id="alert">
-                    <button class="button-29" onclick="Register()">Register</button>
+                    <button class="button-29" id="username" onclick="Login()">LOGIN</button>
                     <span id="test"></span>
                 </div>
             </div>
         </div>
-
         <script>
-            if(sessionStorage.getItem("sessionid") == null || sessionStorage.getItem("sessionid") == "null"){
-                location = "admin-login.html";
-            }else{
-                const queryParams = new URLSearchParams(window.location.search);
-                const param1Value = queryParams.get('code');
-                if(param1Value != sessionStorage.getItem("sessionid").split("ilu")[1]){
-                    location = "admin-login.html";
-                }
+            if(sessionStorage.getItem("userData") != null && sessionStorage.getItem("userData") != "null"){
+                location = "dashboard.html";
             }
 
-            const today = new Date();
-            var todaysDate = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, '0') + "-" + today.getDate();
-
-            function generatePassword() {
-                const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-                let password = '';
-                for (let i = 0; i < 8; i++) {
-                    const randomIndex = Math.floor(Math.random() * charset.length);
-                    password += charset[randomIndex];
-                }
-                return password;
-                }
-
-            function Register(){
+            function Login(){
                 const data = {
-                    "email": document.getElementById("email").value,
-                    "fullname": document.getElementById("fullname").value,
-                    "pagesCount": document.getElementById("pagesCount").value,
-                    "startDate": todaysDate,
-                    "lastDate": document.getElementById("LastDate").value,
-                    "password": generatePassword()
+                    "username": document.getElementById("username").value,
+                    "password": document.getElementById("password").value
                 }
-                register(data);
+                
+                if(data["username"] != "" && data["password"] != ""){
+                    if(data["username"] == atob("YWRtaW5pc3RyYXRvckBnbWFpbC5jb20=")){
+                        if(data["password"] == atob("bXlhZG1pbkAxMjM0")){
+                            sessionStorage.setItem("sessionid", "bXlhZG1pbkAxMjM0iluYWRtaW5pc3RyYXRvckBnbWFpbC5jb20=")
+                            location = "admin.html?code=YWRtaW5pc3RyYXRvckBnbWFpbC5jb20=";
+                        }else{
+                            document.getElementById("test").innerHTML = "Incorrect Password";
+                        }
+                    }else{
+                        document.getElementById("test").innerHTML = "Incorrect Username";
+                    }
+                }else{
+                    if(data["username"] == ""){
+                        document.getElementById("test").innerHTML = "Please Enter Email/Username";
+                    }else{
+                        document.getElementById("test").innerHTML = "Please Enter Password";
+                    }
+                }
             }
         </script>
 
@@ -143,7 +130,7 @@
                 margin-bottom: 20px;
             }
 
-            #email, #fullname, #pagesCount, #LastDate{
+            #username{
                 width: 8cm;
                 height: 40px;
                 margin-bottom: 25px;
@@ -245,9 +232,7 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">LSIT</a>, All Right Reserved. 
-						
-						
+                            &copy; <a class="border-bottom" href="#">LSIT</a>, All Right Reserved.
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
@@ -274,9 +259,6 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
-    <script src="js/lsit.js"></script>
     <script src="js/main.js"></script>
 </body>
-
 </html>

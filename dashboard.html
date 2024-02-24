@@ -81,6 +81,10 @@
                       <td id="name">Loading...</td>
                     </tr>
                     <tr>
+                        <td>Email Id</td>
+                        <td id="email">Loading...</td>
+                      </tr>
+                    <tr>
                         <td>Starting Date of Assignment</td>
                         <td id="startDate">Loading...</td>
                       </tr>
@@ -106,7 +110,7 @@
                   </table>
                 </div>
             </div>
-            <p style="color: red;">Note: You can only submit your work once you will complete all pages.</p>
+            <p style="color: red;">Note: You can only submit your work once you will complete page.</p>
             <div class="row">
                 <div class="col-lg-12" style="border-style: none; text-align: center;">
                     <a href="pages.html"><button class="button-17">START TYPING</button></a><br>
@@ -296,6 +300,7 @@
             const daysLeft = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
 
             document.getElementById("username").innerHTML = userData["name"];
+            document.getElementById("email").innerHTML = userData["email"]
             document.getElementById("name").innerHTML = userData["name"]
             document.getElementById("startDate").innerHTML = userData["startDate"]
             document.getElementById("lastDate").innerHTML = userData["lastDate"]

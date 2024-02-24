@@ -91,10 +91,14 @@
             document.getElementById("username").innerHTML = userData["name"];
 
             for(var i=1;i<=userData["totalPages"];i++){
-                if(i == (parseInt(userData["pagesCompleted"])+1 )){
+                if(i == (parseInt(userData["pagesCompleted"])+1)){
                     document.getElementById("pages").innerHTML += '<option value="'+ i +'">Page '+ i +'</option>';
                 }else{
-                    document.getElementById("pages").innerHTML += '<option value="'+ i +'" disabled>Page '+ i +'</option>';
+                    if(i <= parseInt(userData["pagesCompleted"])){
+                        document.getElementById("pages").innerHTML += '<option value="'+ i +'" disabled>Page '+ i +' Completed</option>';
+                    }else{
+                        document.getElementById("pages").innerHTML += '<option value="'+ i +'" disabled>Page '+ i +'</option>';
+                    }
                 }
             }
             document.getElementById("pages").addEventListener("change", function() {
@@ -149,9 +153,7 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">LSIT</a>, All Right Reserved. 
-							
-							
+                            &copy; <a class="border-bottom" href="#">LSIT</a>, All Right Reserved.
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">

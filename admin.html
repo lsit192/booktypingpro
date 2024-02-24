@@ -29,9 +29,12 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+    <script src="js/lsit.js"></script>
 </head>
 
-<body onload="employee_list()">
+<body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -40,7 +43,6 @@
             </div>
         </div>
         <!-- Spinner End -->
-
 
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
@@ -57,12 +59,14 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Dashboard</a>
                         <div class="dropdown-menu rounded-0 m-0">
-                            <a href="dashboard.html" class="dropdown-item active">Dashboard</a>
+                            <a href="admin.html" class="dropdown-item active">Dashboard</a>
+                            <a href="register.html?code=YWRtaW5pc3RyYXRvckBnbWFpbC5jb20=" class="dropdown-item">Register Employee</a>
+                            <a href="admin-login.html" onclick="logout()" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">ADMIN<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -86,6 +90,20 @@
         <!-- Jobs End -->
 
         <script>
+            if(sessionStorage.getItem("sessionid") == null || sessionStorage.getItem("sessionid") == "null"){
+                location = "admin-login.html";
+            }else{
+                const queryParams = new URLSearchParams(window.location.search);
+                const param1Value = queryParams.get('code');
+                if(param1Value == sessionStorage.getItem("sessionid").split("ilu")[1]){
+                    employee_list();
+                }else{
+                    location = "admin-login.html";
+                }
+            }
+
+
+            // onload="employee_list()"
            function show(data){
             for(var i=0;i<data["Count"];i++){
                 // Specify the end date
@@ -118,6 +136,7 @@
                                                                         Total Days: ${daysBetween}<br>
                                                                         Days Left: ${daysLeft}<br>
                                                                         <button id=${data["Items"][i]["email"]["S"]} onclick="checkResult(this)" class="button-17">Check Result</button>
+                                                                        <button id=${data["Items"][i]["email"]["S"]} onclick="checkDashboard(this)" class="button-17">Dashboard</button>
                                                                     </td>
                                                                 </tr>`;
                                                                 }
@@ -125,6 +144,10 @@
 
                                             function checkResult(obj){
                                                 getUserData(obj.id);
+                                            }
+
+                                            function checkDashboard(obj){
+                                                getUserDashboard(obj.id);
                                             }
         </script>
 
@@ -295,8 +318,6 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
-    <script src="js/lsit.js"></script>
     <script src="js/main.js"></script>
 </body>
 
