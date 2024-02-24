@@ -31,7 +31,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body onload="getPage()">
+<body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -86,78 +86,65 @@
             </div>
         </div>
         <!-- Jobs End -->
-        <script src="pages.js"></script>
         <script>
-            if(sessionStorage.getItem("userData") == null || sessionStorage.getItem("userData") == "null"){
-                location = "login.html";
+            document.getElementById("username").innerHTML = "Testing";
+
+            var pages = {
+                "page1": "AppSLe orange"
             }
-            document.getElementById("username").innerHTML = userData["name"];
-            const queryParams = new URLSearchParams(window.location.search);
-            const param1Value = queryParams.get('page');
-            const originalPage = pages["page" + param1Value];
+            const originalPage = pages["page1"];
             const originalPageList = originalPage.split("®");
 
-            function insertBody(){
                 for(var i = 0; i<originalPageList.length; i++){
-                    document.getElementById("pageDetails").innerHTML +=
-                        `<div class="col-sm-6" id="fieldDetails">
-                            <p>FIELD <span>${i+1}</span></p>
-                        </div>
-                        <div class="col-sm-6" id="fieldDetails">
-                            <p>ACCURACY:- <span id="percentage-${i+1}"></span></p>
-                        </div>
-                        <hr><div class="col-sm-4">
-                            <p id="textTitle">ORIGINAL TEXT</p><hr>
-                            <div id="OriginalText-${i+1}"></div><hr>
-                        </div>
-                        <div class="col-sm-4">
-                            <p id="textTitle">ENTERED TEXT</p><hr>
-                            <div id="EnteredText-${i+1}"></div><hr>
-                        </div>
-                        <div class="col-sm-4">
-                            <p id="textTitle">DIFFERENCE</p><hr>
-                            <div id="DiffText-${i+1}"></div><hr>
-                        </div>`;
+                document.getElementById("pageDetails").innerHTML +=
+                    `<div class="col-sm-6" id="fieldDetails">
+                        <p>FIELD <span>${i+1}</span></p>
+                    </div>
+                    <div class="col-sm-6" id="fieldDetails">
+                        <p>ACCURACY:- <span id="percentage-${i+1}"></span></p>
+                    </div>
+                    <hr><div class="col-sm-4">
+                        <p id="textTitle">ORIGINAL TEXT</p><hr>
+                        <div id="OriginalText-${i+1}"></div><hr>
+                    </div>
+                    <div class="col-sm-4">
+                        <p id="textTitle">ENTERED TEXT</p><hr>
+                        <div id="EnteredText-${i+1}"></div><hr>
+                    </div>
+                    <div class="col-sm-4">
+                        <p id="textTitle">DIFFERENCE</p><hr>
+                        <div id="DiffText-${i+1}"></div><hr>
+                    </div>`;
                 }
-            }
 
-            function jsonTostr(data){
-                var enteredFields = data["pageFields"];
-                var tempList = [];
-                for (var key in enteredFields) {
-                    if (enteredFields.hasOwnProperty(key)) {
-                        tempList.push(enteredFields[key]);
-                    }
-                }
-                return tempList;
-            }
-
-            function fieldDetails(data){
-                insertBody()
-                var tempList = jsonTostr(data);
-                var t = tempList;
-                // Convert JSON object to list
+                var tempList = ["pple"];
                 var res = "";
+                var t = tempList;
                 var wrong = 0;
+
+        
                 var correctPages = 0;
                 var wrongPages = 0;
-                
+                console.log(originalPageList)
                 for(var i = 0; i<originalPageList.length; i++){
                     var n = 0;
-                    if(data["pageFields"]["field"+(i+1)].trim() == originalPageList[i].trim()){
+                    if(originalPageList[i] == tempList[i]){
                         document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${originalPageList[i]}</p>`;
-                        document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${data["pageFields"]["field"+(i+1)]}</p>`;
+                        document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${tempList[i]}</p>`;
                         document.getElementById("percentage-"+(i+1)).innerHTML += "100%";
                         correctPages++;
                     }else{
                         document.getElementById("OriginalText-"+(i+1)).innerHTML += `<p style="color:red">${originalPageList[i]}</p>`;
-                        document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${data["pageFields"]["field"+(i+1)]}</p>`;
+                        document.getElementById("EnteredText-"+(i+1)).innerHTML += `<p style="color:red">${tempList[i]}</p>`;
                         document.getElementById("percentage-"+(i+1)).innerHTML += "0%";
                         wrongPages++;
                     }
-
                     var EnteredTextLength = tempList[i].length;
+                    
+                    console.log(t)
+
                     while(originalPageList[i].length > n){
+                        console.log(EnteredTextLength)
                         if(EnteredTextLength >= originalPageList[i].length){
                             if(originalPageList[i][n] ==  t[i][n]){
                                 res += `<span style="color:rgb(40, 216, 52)">${originalPageList[i][n]}</span>`;
@@ -178,23 +165,23 @@
                                 wrong++;
                             }
                         }else{
-                            n = originalPageList[i].length;
+                            if(originalPageList[i][n] ==  t[i][n]){
+                                res += `<span style="color:rgb(40, 216, 52)">${originalPageList[i][n]}</span>`;
+                                n++;
+                            }else{
+                                
+                                t[i] = t[i].slice(0, n) + originalPageList[i][n] + t[i].slice(n);
+                                res += `<span style="color:red">${originalPageList[i][n]}</span>`;
+                                n++;
+                                wrong++;
+                            }
                         }
                     }
 
-                    var originalPageArray = originalPageList[i].split(" ");
-                    var tempListArray = tempList[i].split(" ")
-                    for(var j=0;j<originalPageArray.length;j++){
-                        if(tempListArray.includes(originalPageArray[j]) && j <= tempListArray.length){
-                            res += `<span style="color:rgb(40, 216, 52)">${originalPageArray[j]} </span>`;
-                        }else{
-                            res += `<span style="color:red">${originalPageArray[j]} </span>`;
-                        }
-                    }
                     document.getElementById("DiffText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${res}</p>`;
                     res = ""
                 }
-            }
+            
         </script>
 
         <style>
@@ -291,8 +278,6 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
-    <script src="js/lsit.js"></script>
     <script src="js/main.js"></script>
 </body>
 
