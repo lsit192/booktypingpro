@@ -99,12 +99,17 @@
             if(sessionStorage.getItem("userData") == null || sessionStorage.getItem("userData") == "null"){
                 location = "login.html";        
             }
+            
             document.getElementById("username").innerHTML = userData["name"];
-            for(var i=1;i<=Object.keys(pages).length;i++){
+            for(var i=1;i<=userData["totalPages"];i++){
                 if(i == (parseInt(userData["pagesCompleted"])+1 )){
                     document.getElementById("pages").innerHTML += '<option value="'+ i +'" selected>Page '+ i +'</option>';
                 }else{
-                    document.getElementById("pages").innerHTML += '<option value="'+ i +'" disabled>Page '+ i +'</option>';
+                    if(i <= parseInt(userData["pagesCompleted"])){
+                        document.getElementById("pages").innerHTML += '<option value="'+ i +'" disabled>Page '+ i +' Completed</option>';
+                    }else{
+                        document.getElementById("pages").innerHTML += '<option value="'+ i +'" disabled>Page '+ i +'</option>';
+                    }
                 }
             }
             document.getElementById("pages").addEventListener("change", function() {
