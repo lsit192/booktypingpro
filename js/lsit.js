@@ -81,14 +81,14 @@ function register(data){
         ReturnConsumedCapacity: "TOTAL",
         TableName: "booktyping-pro-users"
        };
-       dynamodb.putItem(params, function(err, data) {
+       dynamodb.putItem(params, function(err, success) {
          if (err){
             console.log(err, err.stack);
          }else{
-            alert("User Registered Successfully");
+            sendEmail(data);
          }
        });
-}
+    }
 
 function employee_list(){
   aws_config()
@@ -104,6 +104,33 @@ function employee_list(){
     }
    });
 }
+
+function sendEmail(data){
+  var content = `Dear Sir/Ma'am,\n\nCongratulations 💐💐 for joining our Team.\n\nThis is your Login Link id & password from Portal :\n\nLogin Link: https://lsit192.github.io/booktypingpro/login.html\nUsername : ${data["email"]}\nPassword : ${data["password"]}\n\nTechnical Support Team: 8796775539\n\
+  (Monday to Friday 11 am to 5 PM)\n\nNote: \n1) For further technical support mail on email id: newbooktypingproject@gmail.com\n2) Click On training video TAB watch Complete video and Start Working.\n3) 90% Accuracy is Mandatory.\n\nRegards,\nBooktypingPro Team`;
+
+  fetch('https://ii7rmwatti.execute-api.ap-south-1.amazonaws.com/LSIT/',
+      {
+          method: "POST",
+          body: JSON.stringify({
+              "to": data["email"],
+              "subject": "Registration Successful",
+              "content": content
+          })
+      }).then(response => {
+          //handle response   
+          //console.log(data);
+          }).then(data => {
+              //handle data
+              //console.log(data);
+              alert("User Registered Successfully");
+          })
+          .catch(error => {
+              //handle error
+              console.log(error);
+          });
+      }
+
 
 function getUserData(username){
   aws_config()
