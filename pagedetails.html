@@ -80,9 +80,6 @@
                     
                 </div>
                 <hr>
-                <span><p style="color: rgb(40, 216, 52);">Note: Green color indicate correct word</p>
-                    <p style="color: red;">Note: Red color indicate word is missing</p>
-                    <p style="color: blue;">Note: Blue color indicate extra word</p></span>
             </div>
         </div>
         <!-- Jobs End -->
@@ -157,8 +154,8 @@
                     }
 
                     var EnteredTextLength = tempList[i].length;
-                    while(originalPageList[i].length > n){
-                        if(EnteredTextLength >= originalPageList[i].length){
+                    //while(originalPageList[i].length > n){
+                        /*if(EnteredTextLength >= originalPageList[i].length){
                             if(originalPageList[i][n] ==  t[i][n]){
                                 res += `<span style="color:rgb(40, 216, 52)">${originalPageList[i][n]}</span>`;
                                 n++;
@@ -180,21 +177,36 @@
                         }else{
                             n = originalPageList[i].length;
                         }
-                    }
+                    }*/
 
                     var originalPageArray = originalPageList[i].split(" ");
                     var tempListArray = tempList[i].split(" ")
-                    for(var j=0;j<originalPageArray.length;j++){
-                        if(tempListArray.includes(originalPageArray[j]) && j <= tempListArray.length){
-                            res += `<span style="color:rgb(40, 216, 52)">${originalPageArray[j]} </span>`;
-                        }else{
-                            res += `<span style="color:red">${originalPageArray[j]} </span>`;
+                    var tempArray = ""
+                    if(EnteredTextLength < originalPageList[i].length){
+                        for(var j=0;j<originalPageArray.length;j++){
+                            if(tempListArray.includes(originalPageArray[j]) && j <= tempListArray.length){
+                                res += `<span style="color:rgb(40, 216, 52)"> ${originalPageArray[j]} </span>`;
+                            }else{
+                                res += `<span style="color:red"> ${originalPageArray[j]} </span>`;
+                            }
                         }
                     }
+
+                    if(EnteredTextLength >= originalPageList[i].length){
+                        for(var j=0;j<tempListArray.length;j++){
+                            if(originalPageArray.includes(tempListArray[j]) && j <= originalPageArray.length){
+                                res += `<span style="color:rgb(40, 216, 52)"> ${tempListArray[j]} </span>`;
+                            }else{
+                                res += `<span style="color:red"> ${tempListArray[j]} </span>`;
+                            }
+                        }
+                    }
+                    
                     document.getElementById("DiffText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${res}</p>`;
                     res = ""
                 }
             }
+        
         </script>
 
         <style>

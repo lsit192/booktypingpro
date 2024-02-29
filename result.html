@@ -132,16 +132,16 @@
                 var correctPages = 0;
                 var wrongPages = 0;
                 
-
                 for(var j=1;j<=originalPagesList.length;j++){
-                    
-                    if(data["pageFields"]["field"+j] == originalPagesList[j-1]){
+                    if(data["pageFields"]["field"+j].trim() == originalPagesList[j-1].trim()){
                         correctPages++;
                     }else{
                         wrongPages++;
                     }
                 }
-                
+
+           
+                //console.log(originalPagesList.length)
                 document.getElementById("accuracy-"+data["pageNumber"]).innerHTML += (100 - (wrongPages/originalPagesList.length)*100).toFixed(2) + "%";
                 totalAccuracy += (wrongPages/originalPagesList.length)*100;
                 wrongPages = 0;
