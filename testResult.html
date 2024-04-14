@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <title>Booktyping Pro</title>
+    <title>Page Typing</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -41,11 +40,10 @@
         </div>
         <!-- Spinner End -->
 
-
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
-                <h3 class="m-0 text-primary">Booktyping Pro</h3>
+                <h3 class="m-0 text-primary">Page Typing</h3>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -73,12 +71,8 @@
         <div class="container-xxl py-5">
             <div class="container">
                 <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">PAGE DETAIL</h4>
-                <div class="row" style="text-align: center;" >
-                    
-                </div>
-                <div class="row" style="text-align: center;" id="pageDetails">
-                    
-                </div>
+                <div class="row" style="text-align: center;" ></div>
+                <div class="row" style="text-align: center;" id="pageDetails"></div>
                 <hr>
                 <span><p style="color: rgb(40, 216, 52);">Note: Green color indicate correct word</p>
                     <p style="color: red;">Note: Red color indicate word is missing</p>
@@ -121,8 +115,6 @@
                 var res = "";
                 var t = tempList;
                 var wrong = 0;
-
-        
                 var correctPages = 0;
                 var wrongPages = 0;
                 console.log(originalPageList)
@@ -140,8 +132,6 @@
                         wrongPages++;
                     }
                     var EnteredTextLength = tempList[i].length;
-                    
-                    console.log(t)
 
                     while(originalPageList[i].length > n){
                         console.log(EnteredTextLength)
@@ -181,7 +171,6 @@
                     document.getElementById("DiffText-"+(i+1)).innerHTML += `<p style="color:rgb(40, 216, 52)">${res}</p>`;
                     res = ""
                 }
-            
         </script>
 
         <style>
@@ -231,7 +220,7 @@
                     <div class="col-lg-4 col-md-6">
                         <h5 class="text-white mb-4">Contact</h5>
                         <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>mega center, hadapsar, pune</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>1234567890</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 97645 12350</p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i>newtypingproject@gmail.com</p>
                         <div class="d-flex pt-2">
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
@@ -247,8 +236,6 @@
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                             &copy; <a class="border-bottom" href="#">LSIT</a>, All Right Reserved. 
-							
-							
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
@@ -263,7 +250,6 @@
             </div>
         </div>
         <!-- Footer End -->
-
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
@@ -280,5 +266,4 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
-
 </html>
