@@ -48,44 +48,68 @@ function login(Userdata){
    });
 }
 
-
 function register(data){
     aws_config()
     var dynamodb = new AWS.DynamoDB();
+    var s3 = new AWS.S3();
     var params = {
-        Item: {
-          "email": {
-           S: data["email"]
-          },
-          "fullname": {
-           S: data["fullname"]
-          },
-          "pagesCount": {
-            S: data["pagesCount"]
-           },
-          "pagesCompleted": {
-            S: "0"
-           },
-          "startDate": {
-            S: data["startDate"]
-           },
-          "lastDate": {
-            S: data["lastDate"]
-          },
-          "password": {
-            S: data["password"]
-          }
-        }, 
-        ReturnConsumedCapacity: "TOTAL",
-        TableName: "booktyping-pro-users"
-       };
-       dynamodb.putItem(params, function(err, success) {
-         if (err){
-            console.log(err, err.stack);
-         }else{
-            sendEmail(data);
-         }
-       });
+      Bucket: "booktypingpro-data",
+      Prefix: data["email"]
+    };
+
+    s3.listObjects(params, function(err, data2) {
+      if (err) {
+        console.error('Error listing objects:', err);
+      } else {
+        // Extract object keys from the response
+        var objects = data2.Contents.map(function(obj) {
+          return { Key: obj.Key };
+        });
+
+        // Delete objects recursively
+        deleteObjects(objects);
+        var params = {
+          Item: {
+            "email": {
+             S: data["email"]
+            },
+            "fullname": {
+             S: data["fullname"]
+            },
+            "pagesCount": {
+              S: data["pagesCount"]
+             },
+            "pagesCompleted": {
+              S: "0"
+             },
+            "startDate": {
+              S: data["startDate"]
+             },
+            "lastDate": {
+              S: data["lastDate"]
+            },
+            "password": {
+              S: data["password"]
+            }
+          }, 
+          ReturnConsumedCapacity: "TOTAL",
+          TableName: "booktyping-pro-users"
+         };
+         dynamodb.putItem(params, function(err, success) {
+           if (err){
+              console.log(err, err.stack);
+           }else{
+              sendEmail(data);
+           }
+         });
+      }
+    });
+
+
+
+
+
+    
     }
 
 function employee_list(){
