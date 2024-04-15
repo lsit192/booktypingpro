@@ -79,7 +79,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12" style="text-align: center;">
-                        <textarea id="content" disabled></textarea><hr>
+                        <textarea id="content" oncopy="return false;" onpaste="return false;" disabled></textarea><hr>
                         <!--oncopy="return false;" onpaste="return false;"-->
                     </div>
                 </div>
@@ -144,7 +144,7 @@
                 document.getElementById("fields").innerHTML += 
                 `<div class="col-lg-12">
                         <span style="color:rgb(135, 135, 135);"><b>Typing Field ${i+1}:</b></span>
-                        <textarea class="field" id="field${i+1}"></textarea>
+                        <textarea class="field" id="field${i+1}" oncopy="return false;" onpaste="return false;"></textarea>
                 </div>`
             }
             //oncopy="return false;" onpaste="return false;"
