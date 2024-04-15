@@ -110,6 +110,16 @@
             var totalAccuracy = 0;
             var totalPages = 0;
             function display(data){
+                var pages;
+                if(userData["totalPages"][3] == "A"){
+                    pages = dataA;
+                }else if(userData["totalPages"][3] == "B"){
+                    pages = dataB;
+                }else if(userData["totalPages"][3] == "C"){
+                    pages = dataC;
+                }else{
+                    pages = dataD;
+                }
                 const originalPages = pages["page" + parseInt(data["pageNumber"])];
                 const originalPagesList = originalPages.split("®");
                 const enteredText = ""

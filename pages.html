@@ -88,7 +88,7 @@
             }
             document.getElementById("username").innerHTML = userData["name"];
 
-            for(var i=1;i<=userData["totalPages"];i++){
+            for(var i=1;i<=200;i++){
                 if(i == (parseInt(userData["pagesCompleted"])+1)){
                     document.getElementById("pages").innerHTML += '<option value="'+ i +'">Page '+ i +'</option>';
                 }else{

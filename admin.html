@@ -121,7 +121,6 @@
 
                 // Calculate the difference in milliseconds between the two dates
                 const differenceMs = endDate - today;
-
                 // Convert milliseconds to days
                 const daysLeft = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
                 document.getElementById("customers").innerHTML += `<tr>
@@ -130,14 +129,17 @@
                                                                     </td>
                                                                     <td>
                                                                         Pages Completed: ${data["Items"][i]["pagesCompleted"]["S"]}<br>
+                                                                        Set: ${data["Items"][i]["pagesCount"]["S"]}<br>
                                                                         Starting Date: ${data["Items"][i]["startDate"]["S"]}<br>
                                                                         Last Date: ${data["Items"][i]["lastDate"]["S"]}<br>
                                                                         Total Days: ${daysBetween}<br>
                                                                         Days Left: ${daysLeft}<br>
+                                                                        Account Password : ${data["Items"][i]["password"]["S"]}<br>
                                                                         <button id=${data["Items"][i]["email"]["S"]} onclick="checkResult(this)" class="button-17">Check Result</button>
-                                                                        <button id=${data["Items"][i]["email"]["S"]} onclick="checkDashboard(this)" class="button-17">Dashboard</button>
+                                                                        <button id=${data["Items"][i]["email"]["S"]} onclick="deleteUser(this)" style="color:red" class="button-17">Delete User</button>
                                                                     </td>
                                                                 </tr>`;
+                                                                //<button id=${data["Items"][i]["email"]["S"]} onclick="checkDashboard(this)" class="button-17">Dashboard</button>
                                                                 }
                                                             }
 

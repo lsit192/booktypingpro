@@ -89,6 +89,16 @@
             document.getElementById("username").innerHTML = userData["name"];
             const queryParams = new URLSearchParams(window.location.search);
             const param1Value = queryParams.get('page');
+            var pages;
+            if(userData["totalPages"][3] == "A"){
+                pages = dataA;
+            }else if(userData["totalPages"][3] == "B"){
+                pages = dataB;
+            }else if(userData["totalPages"][3] == "C"){
+                pages = dataC;
+            }else{
+                pages = dataD;
+            }
             const originalPage = pages["page" + param1Value];
             const originalPageList = originalPage.split("®");
 

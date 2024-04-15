@@ -35,8 +35,6 @@ function login(Userdata){
               "lastDate": data["Item"]["lastDate"]["S"]
           }
 
-          console.log(data)
-
             if(Userdata["password"] ==  data["Item"]["password"]["S"]){
               sessionStorage.setItem("userData", btoa(JSON.stringify(userData)))
               location = "dashboard.html";
@@ -124,6 +122,7 @@ function sendEmail(data){
               //handle data
               //console.log(data);
               alert("User Registered Successfully");
+              location = "admin.html?code=YWRtaW5pc3RyYXRvckBnbWFpbC5jb20=";
           })
           .catch(error => {
               //handle error
@@ -131,6 +130,74 @@ function sendEmail(data){
           });
       }
 
+// Recursive function to delete objects
+function deleteObjects(objects) {
+  aws_config()
+  var s3 = new AWS.S3();
+  if (objects.length === 0) {
+    //console.log('All objects deleted successfully');
+    return;
+  }
+
+  // Delete objects in batches of 1000 (maximum allowed by AWS)
+  var batch = objects.slice(0, 1000);
+  var deleteParams = {
+    Bucket: 'booktypingpro-data',
+    Delete: { Objects: batch }
+  };
+
+  s3.deleteObjects(deleteParams, function(err, data) {
+    if (err) {
+      console.error('Error deleting objects:', err);
+    } else {
+      //console.log('Objects deleted successfully:', data.Deleted);
+      // Continue deleting remaining objects recursively
+      deleteObjects(objects.slice(1000));
+    }
+  });
+}
+
+function deleteUser(obj){
+    // Display confirmation alert
+    aws_config()
+    var s3 = new AWS.S3();
+    var dynamodb = new AWS.DynamoDB();
+    var result = window.confirm("Are you sure you want to delete userid "+obj.id);
+    
+    // Check user's response
+    if (result) {
+      var params = {
+        Bucket: "booktypingpro-data",
+        Prefix: obj.id
+      };
+  
+      s3.listObjects(params, function(err, data) {
+        if (err) {
+          console.error('Error listing objects:', err);
+        } else {
+          // Extract object keys from the response
+          var objects = data.Contents.map(function(obj) {
+            return { Key: obj.Key };
+          });
+  
+          // Delete objects recursively
+          deleteObjects(objects);
+          var params = {
+            Key: {
+             "email": {
+               S: obj.id
+              }
+            },
+            TableName: "booktyping-pro-users"
+           };
+           dynamodb.deleteItem(params, function(err, data) {
+             if (err) console.log(err, err.stack); // an error occurred
+             else     alert("UserId "+ obj.id + " Removed Successfully...");           // successful response
+           });
+        }
+      });
+    }
+}
 
 function getUserData(username){
   aws_config()

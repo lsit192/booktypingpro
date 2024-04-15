@@ -112,8 +112,8 @@
             <p style="color: red;">Note: You can only submit your work once you will complete page.</p>
             <div class="row">
                 <div class="col-lg-12" style="border-style: none; text-align: center;">
-                    <a href="pages.html"><button class="button-17">START TYPING</button></a><br>
-                    <a href="result.html">Generate Result</a>
+                    <button class="button-17" id="startTyping"><a href="pages.html">START TYPING</a></button><br>
+                    <div id="generateResult"><a href="result.html">Generate Result</a></div>
                 </div>
             </div>
 
@@ -314,6 +314,13 @@
             document.getElementById("completedPages").innerHTML = userData["pagesCompleted"]
             document.getElementById("totalDays").innerHTML = daysBetween
             document.getElementById("daysRemain").innerHTML = daysLeft
+            if(daysLeft == 0){
+                document.getElementById("startTyping").innerHTML = "Account Expired";
+            }
+
+            if(daysLeft >= 5){
+                document.getElementById("generateResult").innerHTML = "Result will display after " + (daysLeft - 5) + " days"
+            }
         }
     </script>
 
