@@ -106,8 +106,8 @@ function employee_list(){
 }
 
 function sendEmail(data){
-  var content = `Dear Sir/Ma'am,\n\nCongratulations 💐💐 for joining our Team.\n\nThis is your Login Link id & password from Portal :\n\nLogin Link: https://lsit192.github.io/booktypingpro/login.html\nUsername : ${data["email"]}\nPassword : ${data["password"]}\n\nTechnical Support Team: 8796775539\n\
-  (Monday to Friday 11 am to 5 PM)\n\nNote: \n1) For further technical support mail on email id: newbooktypingproject@gmail.com\n2) Click On training video TAB watch Complete video and Start Working.\n3) 90% Accuracy is Mandatory.\n\nRegards,\nBooktypingPro Team`;
+  var content = `Dear Sir/Ma'am,\n\nCongratulations 💐💐 for joining our Team.\n\nThis is your Login Link id & password from Portal :\n\nLogin Link: https://pagetyping.netlify.app/login.html\nUsername : ${data["email"]}\nPassword : ${data["password"]}\n\nTechnical Support Team: 8796775539\n\
+  (Monday to Friday 11 am to 5 PM)\n\nNote: \n1) For further technical support mail on email id: newbooktypingproject@gmail.com\n2) Click On training video TAB watch Complete video and Start Working.\n3) 90% Accuracy is Mandatory.\n\nRegards,\nPages Typing Team`;
 
   fetch('https://ii7rmwatti.execute-api.ap-south-1.amazonaws.com/LSIT/',
       {
