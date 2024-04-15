@@ -100,7 +100,7 @@
             }
             
             document.getElementById("username").innerHTML = userData["name"];
-            for(var i=1;i<=userData["totalPages"];i++){
+            for(var i=1;i<=200;i++){
                 if(i == (parseInt(userData["pagesCompleted"])+1 )){
                     document.getElementById("pages").innerHTML += '<option value="'+ i +'" selected>Page '+ i +'</option>';
                 }else{
@@ -120,6 +120,23 @@
             const queryParams = new URLSearchParams(window.location.search);
             // Get the value of a specific parameter
             const param1Value = queryParams.get('content');
+            const dataSets = {
+                "A": dataA,
+                "B": dataB,
+                "C": dataC,
+                "D": dataD
+            }
+
+            var pages;
+            if(userData["totalPages"][3] == "A"){
+                pages = dataA;
+            }else if(userData["totalPages"][3] == "B"){
+                pages = dataB;
+            }else if(userData["totalPages"][3] == "C"){
+                pages = dataC;
+            }else{
+                pages = dataD;
+            }
             const content = pages["page" + param1Value.split(" ")[1]];
             document.getElementById("content").innerHTML = content;
             const contentList = content.split("®");
