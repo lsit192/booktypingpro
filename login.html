@@ -67,13 +67,14 @@
         <div class="container-fluid" id="loginPage">
             <div class="row" id="loginContent">
                 <div class="col-lg-12" id="title">
-                    <h3>Login</h3>
+                    <h3>LOGIN</h3>
                 </div>
                 <div class="col-lg-12">
                     <input type="email" placeholder="Username/email" id="username">
                 </div>
                 <div class="col-lg-12">
                     <input type="password" placeholder="Password" id="password">
+                    <span onclick="showPassword()" style="font-size: 15px; cursor: pointer;">Show Password</span>
                 </div>
                 <div class="col-lg-12" id="alert">
                     <button class="button-29" id="username" onclick="Login()">LOGIN</button>
@@ -86,6 +87,14 @@
                 location = "dashboard.html";
             }
 
+            function showPassword() {
+                var passwordInput = document.getElementById("password");
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                } else {
+                    passwordInput.type = "password";
+            }
+            }
             function Login(){
                 const data = {
                     "username": document.getElementById("username").value,
