@@ -104,13 +104,7 @@ function register(data){
          });
       }
     });
-
-
-
-
-
-    
-    }
+  }
 
 function employee_list(){
   aws_config()
@@ -414,5 +408,84 @@ function getPage(){
       var data = data.Body.toString('utf-8')
       fieldDetails(JSON.parse(data))
      }
+   });
+}
+
+function updateUserDetails(username, updatedName, updatedLastDate, updatedPassword){
+  aws_config()
+  var dynamodb = new AWS.DynamoDB();
+  var params = {
+    Key: {
+     "email": {
+       S: username
+      }
+    }, 
+    TableName: "booktyping-pro-users"
+   };
+   dynamodb.getItem(params, function(err, data) {
+      if (err){
+          console.log(err, err.stack);
+      }else{
+          if(Object.keys(data).length != 0){
+            var userData = {
+              "name": data["Item"]["fullname"]["S"],
+              "email": data["Item"]["email"]["S"],
+              "totalPages": data["Item"]["pagesCount"]["S"],
+              "pagesCompleted": data["Item"]["pagesCompleted"]["S"],
+              "startDate": data["Item"]["startDate"]["S"],
+              "lastDate": data["Item"]["lastDate"]["S"],
+              "password": data["Item"]["password"]["S"]
+
+          }
+
+          if(updatedName != ""){
+            userData["name"] = updatedName;
+          }
+
+          if(updatedLastDate != ""){
+            userData["lastDate"] = updatedLastDate;
+          }
+
+          if(updatedPassword != ""){
+            userData["password"] = updatedPassword;
+          }
+
+          var params = {
+            Item: {
+              "email": {
+               S: userData["email"]
+              },
+              "fullname": {
+               S: userData["name"]
+              },
+              "pagesCount": {
+                S: userData["totalPages"]
+               },
+              "pagesCompleted": {
+                S: userData["pagesCompleted"]
+               },
+              "startDate": {
+                S: userData["startDate"]
+               },
+              "lastDate": {
+                S: userData["lastDate"]
+              },
+              "password": {
+                S: userData["password"]
+              }
+            }, 
+            ReturnConsumedCapacity: "TOTAL",
+            TableName: "booktyping-pro-users"
+           };
+           dynamodb.putItem(params, function(err, success) {
+             if (err){
+                console.log(err, err.stack);
+                alert("Error in updating data")
+             }else{
+                alert("User Data Updated Successfully...")
+             }
+           });
+        }
+      }
    });
 }

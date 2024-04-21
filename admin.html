@@ -137,11 +137,36 @@
                                                                         Account Password : ${data["Items"][i]["password"]["S"]}<br>
                                                                         <button id=${data["Items"][i]["email"]["S"]} onclick="checkResult(this)" class="button-17">Check Result</button>
                                                                         <button id=${data["Items"][i]["email"]["S"]} onclick="checkDashboard(this)" class="button-17">Dashboard</button>
+                                                                        <button id=${data["Items"][i]["email"]["S"]} onclick="updateDetailsForm(this)" class="button-17">Update Form</button>
                                                                         <button id=${data["Items"][i]["email"]["S"]} onclick="deleteUser(this)" style="color:red" class="button-17">Delete User</button>
                                                                     </td>
-                                                                </tr>`;
+                                                                </tr>
+                                                                <div id="updationForm ${data["Items"][i]["email"]["S"]}" style="text-align:center"></div><hr>`;
                                                                 }
                                                             }
+
+                                            function updateDetailsForm(obj){
+                                                document.getElementById(`updationForm ${obj.id}`).innerHTML = `<hr><h5>Updation Form</h5>
+                                                                    <label>Name</label>
+                                                                    <input type="text" id="updateName" placeholder="Updated Name"><br><br>
+                                                                    <label>Last Date</label>
+                                                                    <input type="date" id="updateLastDate" placeholder="Last Date Update"><br><br>
+                                                                    <label>New Password</label>
+                                                                    <input type="text" id="updatePassword" placeholder="New Password"><br>
+                                                                    <button id=${obj.id} onclick="updateDetails(this)" class="button-17">Update Details</button>
+                                                                    <button id=${obj.id} onclick="cancleUpdate(this)" class="button-17">Cancle</button>`
+                                            }
+
+                                            function updateDetails(obj){
+                                                var updatedName = document.getElementById("updateName").value;
+                                                var updatedLastDate = document.getElementById("updateLastDate").value;
+                                                var updatedPassword = document.getElementById("updatePassword").value;
+                                                updateUserDetails(obj.id, updatedName, updatedLastDate, updatedPassword)
+                                            }
+
+                                            function cancleUpdate(obj){
+                                                document.getElementById(`updationForm ${obj.id}`).innerHTML = ""
+                                            }
 
                                             function checkResult(obj){
                                                 getUserData(obj.id);

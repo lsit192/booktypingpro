@@ -70,10 +70,21 @@
         <!-- Jobs Start -->
         <div class="container-xxl py-5">
             <div class="container">
+                <div class="row">
+                    <div class="col-lg-6" style="text-align: left; cursor: pointer;">
+                        <span onclick="back()">Back &larr;</span>
+                    </div>
+                    <div class="col-lg-6" style="text-align: right; cursor: pointer;">
+                        <span id="fullscreen" onclick="toggleFullScreen()">Full screen &#x2B1B;</span>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="container">
                 <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">RESULT</h4><hr>
                 <div class="row" id="employeeDetails">
                     <div class="col-lg-4">
-                        <p>Employee Name:- <span id="name">LSIT Developments</span></p>
+                        <p>Employee Name:- <span id="name">Loading...</span></p>
                     </div>
                     <div class="col-lg-4">
                         <p>Work Assignment Date:- <span id="startDate">20 feb 2024</span></p>
@@ -152,6 +163,23 @@
                 document.getElementById("totalAccuracy").innerHTML = (100 - (totalAccuracy/(totalPages*100))*100).toFixed(2);
             }
 
+            function back(){
+                window.history.back();
+            }
+
+            // Function to toggle full-screen mode
+            function toggleFullScreen() {
+                    if (!document.fullscreenElement) {
+                        // If full-screen mode is not active, enter full-screen mode
+                        document.documentElement.requestFullscreen();
+                    } else {
+                        // If full-screen mode is active, exit full-screen mode
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                }
+
             /*var correctPages = 0;
             var wrongPages = 0;
             var totalAccuracy = 0;
@@ -184,6 +212,15 @@
         </script>
 
         <style>
+            /* Style for the span */
+            #fullscreen-span {
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                cursor: pointer;
+                display: inline-block;
+            }
+        
             #employeeDetails{
                 border-style: none;
                 text-align: center;
