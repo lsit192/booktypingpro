@@ -60,7 +60,7 @@
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="admin.html?code=YWRtaW5pc3RyYXRvckBnbWFpbC5jb20=" class="dropdown-item active">Dashboard</a>
                             <a href="register.html?code=YWRtaW5pc3RyYXRvckBnbWFpbC5jb20=" class="dropdown-item">Register Employee</a>
-                            <a href="typing-data.html" class="dropdown-item">Typing Data</a>
+                            
                             <a href="admin-login.html" onclick="logout()" class="dropdown-item">Logout</a>
                         </div>
                     </div>
@@ -77,13 +77,13 @@
                 <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">REGISTERED EMPLOYEES</h4>
                 <a href="register.html?code=YWRtaW5pc3RyYXRvckBnbWFpbC5jb20=" style="color: red; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-variant: small-caps;">Registration?</a>
                 <a href="admin-login.html" onclick="logout()" style="color: rgb(0, 137, 9); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-variant: small-caps;">Logout</a><hr>
-                <div class="row">
+                <div class="row" style="text-align: center;">
                     <div class="col-lg-12">
                         <table id="customers">
-                            <tr>
-                                <td>Employee Id</td>
+                            <tr >
+                                <td>Employees</td>
                             </tr>
-                          </table>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -134,11 +134,11 @@
                                                                         Last Date: ${data["Items"][i]["lastDate"]["S"]}<br>
                                                                         Total Days: ${daysBetween}<br>
                                                                         Days Left: ${daysLeft}<br>
-                                                                        Account Password : ${data["Items"][i]["password"]["S"]}<br>
+                                                                        Account Password : ${data["Items"][i]["password"]["S"]}<br><hr>
                                                                         <button id=${data["Items"][i]["email"]["S"]} onclick="checkResult(this)" class="button-17">Check Result</button>
                                                                         <button id=${data["Items"][i]["email"]["S"]} onclick="checkDashboard(this)" class="button-17">Dashboard</button>
                                                                         <button id=${data["Items"][i]["email"]["S"]} onclick="updateDetailsForm(this)" class="button-17">Update Form</button>
-                                                                        <button id=${data["Items"][i]["email"]["S"]} onclick="deleteUser(this)" style="color:red" class="button-17">Delete User</button>
+                                                                        <button id=${data["Items"][i]["email"]["S"]} onclick="deleteUser(this)" style="color:red" class="button-17">Delete User</button><hr>
                                                                     </td>
                                                                 </tr>
                                                                 <div id="updationForm ${data["Items"][i]["email"]["S"]}" style="text-align:center"></div><hr>`;
@@ -146,7 +146,7 @@
                                                             }
 
                                             function updateDetailsForm(obj){
-                                                document.getElementById(`updationForm ${obj.id}`).innerHTML = `<hr><h5>Updation Form</h5>
+                                                document.getElementById(`updationForm ${obj.id}`).innerHTML = `<hr><h5>UPDATION FORM</h5>
                                                                     <label>Name</label>
                                                                     <input type="text" id="updateName" placeholder="Updated Name"><br><br>
                                                                     <label>Last Date</label>
@@ -179,8 +179,9 @@
 
         <style>
             #customers {
-              font-family: Arial, Helvetica, sans-serif;
+              font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
               border-collapse: collapse;
+              font-size: 18px;
               width: 100%;
             }
             

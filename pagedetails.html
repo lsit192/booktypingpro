@@ -70,6 +70,17 @@
         <!-- Jobs Start -->
         <div class="container-xxl py-5">
             <div class="container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6" style="text-align: left; cursor: pointer;">
+                            <span onclick="back()">Back &larr;</span>
+                        </div>
+                        <div class="col-lg-6" style="text-align: right; cursor: pointer;">
+                            <span id="fullscreen" onclick="toggleFullScreen()">Full screen &#x2B1B;</span>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
                 <h4 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">PAGE DETAIL</h4>
                 <div class="row" style="text-align: center;" >
                     
@@ -214,9 +225,34 @@
                     res = ""
                 }
             }
+
+            function back(){
+                window.history.back();
+            }
+
+            // Function to toggle full-screen mode
+            function toggleFullScreen() {
+                    if (!document.fullscreenElement) {
+                        // If full-screen mode is not active, enter full-screen mode
+                        document.documentElement.requestFullscreen();
+                    } else {
+                        // If full-screen mode is active, exit full-screen mode
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                }
         </script>
 
         <style>
+            #fullscreen-span {
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                cursor: pointer;
+                display: inline-block;
+            }
+
             #fieldDetails{
                 border-style: none;
                 padding-top: 12px;

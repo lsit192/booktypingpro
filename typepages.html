@@ -69,6 +69,17 @@
         <!-- Jobs Start -->
         <div class="container-xxl py-5" id="pageBody">
             <div class="container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6" style="text-align: left; cursor: pointer;">
+                            <span onclick="back()">Back &larr;</span>
+                        </div>
+                        <div class="col-lg-6" style="text-align: right; cursor: pointer;">
+                            <span id="fullscreen" onclick="toggleFullScreen()">Full screen &#x2B1B;</span>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
                 <h4 class="text-center mb-5 wow fadeInUp" style="color: rgb(135, 135, 135);" data-wow-delay="0.1s">TYPE PAGES</h4><hr>
                 <div class="row">
                     <span>Select Page</span>
@@ -186,9 +197,34 @@
                         alert("Incorrect Email Id...")
                     }
                 }
+
+            function back(){
+                window.history.back();
+            }
+
+            // Function to toggle full-screen mode
+            function toggleFullScreen() {
+                    if (!document.fullscreenElement) {
+                        // If full-screen mode is not active, enter full-screen mode
+                        document.documentElement.requestFullscreen();
+                    } else {
+                        // If full-screen mode is active, exit full-screen mode
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                }
         </script>
 
         <style>
+            #fullscreen-span {
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                cursor: pointer;
+                display: inline-block;
+            }
+
             #content{
                 width: 100%;
                 height: 5cm;
